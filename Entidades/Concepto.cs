@@ -8,5 +8,6 @@ namespace Entidades
 {
     class Concepto
     {
+        public Concepto() { }    //Constructor por defecto
     }
 }
