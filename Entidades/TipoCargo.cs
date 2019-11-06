@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class ConceptoRecibo
+    public class TipoCargo
     {
         private int idcr;
         private float cantidad;
