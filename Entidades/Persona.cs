@@ -8,13 +8,13 @@ namespace Entidades
 {
     public class Persona
     {
-        int legajo;
-        string nombres;
-        string apellidos;
-        string documento;
-        DateTime fechaNacimiento;
-        string sexo;
-        string baja;
+        private int legajo;
+        private string nombres;
+        private string apellidos;
+        private string documento;
+        private DateTime fechaNacimiento;
+        private string sexo;
+        private string baja;
         
         public int Legajo { get => legajo; set => legajo = value; }
         public string Nombres { get => nombres; set => nombres = value; }
