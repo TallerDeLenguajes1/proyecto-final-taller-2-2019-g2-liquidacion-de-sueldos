@@ -31,10 +31,13 @@ namespace Entidades
         public int Anio { get => anio; set => anio = value; }
         public float SueldoBruto { get => sueldoBruto; set => sueldoBruto = value; }
         public float SueldoNeto { get => sueldoNeto; set => sueldoNeto = value; }
-
         public override string ToString()
         {
             return idrs + "," + legajo + "," + mes + "," + anio + "," + sueldoBruto + "," + sueldoNeto;
+        }
+        public float calcularMonto()
+        {
+            return 0;
         }
     }
 }
