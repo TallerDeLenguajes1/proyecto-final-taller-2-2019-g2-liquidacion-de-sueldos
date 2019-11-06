@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class Concepto
+    public class TipoConcepto
     {
     }
 }
