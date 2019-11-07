@@ -25,6 +25,30 @@ namespace ParteVisual
         public MainWindow()
         {
             InitializeComponent();
+            BDTipoCargo tc = new BDTipoCargo();
+
+            List<TipoCargo> Ltp = tc.SelectTiposCargos();
+
+            MessageBox.Show(Ltp[0].ToString());
+            int id = Ltp[0].IdTipoCargo;
+
+            Ltp[0].Categoria = "PRUEBA";
+
+            tc.UpdateTipoCargo(Ltp[0]);
+            Ltp = tc.SelectTiposCargos();
+            MessageBox.Show(Ltp[0].ToString());
+            //MessageBox.Show(tc.MaxIdDB().ToString());
+            TipoCargo tipocargoNuevo = new TipoCargo(0, "CAtegoria Nueva4", 1200);
+
+            //MessageBox.Show(tc.InsertTipoCargo(tipocargoNuevo).ToString());
+            //MessageBox.Show(Ltp[0].IdTipoCargo.ToString());
+            //MessageBox.Show(tc.DeleteTipoCargo(Ltp[0]).ToString());
+
+            //Ltp = tc.SelectTiposCargos();
+            //MessageBox.Show(Ltp[Ltp.Count() - 1].ToString());
+            //MessageBox.Show(Ltp[0].ToString());
+
+
 
         }
     }

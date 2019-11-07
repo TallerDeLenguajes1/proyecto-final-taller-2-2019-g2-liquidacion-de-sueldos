@@ -16,11 +16,15 @@ namespace AccesoDatos
         {
             con = new MySqlConnection(cadenaConexion);
         }
+
         public MySqlConnection Conectar()
         {
             try
             {
-                con.Open();
+                if(con.State != System.Data.ConnectionState.Open)
+                {
+                    con.Open();
+                }
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
@@ -30,7 +34,10 @@ namespace AccesoDatos
         }
         public void Desconectar()
         {
-            con.Close();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+                con.Close();
+            }
         }
     }
 }
