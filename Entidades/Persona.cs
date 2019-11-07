@@ -38,12 +38,7 @@ namespace Entidades
      
         public override string ToString()
         {
-            return legajo + " - " + nombres + " " + apellidos + "  " + documento + " "+ fechaNacimiento+""+sexo+""+baja;
+            return legajo + "," + nombres + "," + apellidos + "," + documento + ","+ fechaNacimiento+""+ sexo + "," + baja;
         }
-        public string ConcatenarDatos()
-        {
-            return legajo + ";" + nombres + ";" + apellidos + ";" + documento + ";" + fechaNacimiento+";"+sexo+""+baja;
-        }
-
     }
 }
