@@ -8,16 +8,16 @@ using MySql.Data.MySqlClient;
 
 namespace AccesoDatos
 {
-    public class BDCargo
+    public class BDTipoCargo
     {
-        private List<Cargo> cargos;
+        private List<TipoCargo> tiposCargos;
         Conexion conexion;
-        public BDCargo()
+        public BDTipoCargo()
         {
-            this.cargos = new List<Cargo>();
+            this.tiposCargos = new List<TipoCargo>();
             this.conexion = new Conexion();
         }
-        public List<Cargo> SelectCargos()
+        public List<TipoCargo> SelectCargos()
         {
             const string qry = "SELECT * FROM cargos";
             using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
@@ -26,9 +26,8 @@ namespace AccesoDatos
                 {
                     while (rd.Read())
                     {
-                        cargos.Add(new Cargo
-                        {
-                            IdCargo = Convert.ToInt32(rd["idCargo"].ToString()),
+                        tiposCargos.Add(new TipoCargo { 
+                            IdTipoCargo = Convert.ToInt32(rd["idcargo"].ToString()),
                             Categoria = rd["categoria"].ToString(),
                             SueldoBasico = (float)Convert.ToDouble(rd["sueldoBasico"].ToString())
                         });
@@ -36,24 +35,10 @@ namespace AccesoDatos
                 }
             }
             conexion.Desconectar();
-            return cargos;
+            return tiposCargos;
         }
         public void UpdateCargo(Cargo cargo)
         {
-            /*
-            const string qry = "UPDATE cargos SET categoria = @pcategoria, sueldobasico = @psueldobasico WHERE idcargo = @pidcargo";
-            using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
-            {
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                catch(MySql)
-                {
-
-                }
-            }
-            conexion.Desconectar();*/
         }
 
 

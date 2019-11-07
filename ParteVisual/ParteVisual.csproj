@@ -97,5 +97,15 @@
   <ItemGroup>
     <Folder Include="vistas\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccesoDatos\AccesoDatos.csproj">
+      <Project>{54F52D9E-CB6D-438E-A565-101ACC96EFD9}</Project>
+      <Name>AccesoDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{7AC10E46-4E1E-4EBE-AE0B-3D8FE82F2805}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
