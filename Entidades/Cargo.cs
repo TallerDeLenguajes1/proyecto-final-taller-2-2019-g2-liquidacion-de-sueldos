@@ -8,11 +8,11 @@ namespace Entidades
 {
     public class Cargo
     {
-        int idpc;
-        int idCargo;
-        string funcion;
-        DateTime fechaIngreso;
-        DateTime fechaBaja;
+        private int idpc;
+        private int idCargo;
+        private string funcion;
+        private DateTime fechaIngreso;
+        private DateTime fechaBaja;
         //funcion antiguedad
         public int Idpc { get => idpc; set => idpc = value; }
         public int IdCargo { get => idCargo; set => idCargo = value; }

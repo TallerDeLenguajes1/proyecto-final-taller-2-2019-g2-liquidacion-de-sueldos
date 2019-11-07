@@ -8,22 +8,25 @@ namespace Entidades
 {
     public class TipoCargo
     {
-        private int idcr;
-        private float cantidad;
-        private float monto;
-        private List<Concepto> conceptos;
+        private int idTipoCargo;
+        private string categoria;
+        private float sueldoBasico;
+        public TipoCargo() { }
 
-        public ConceptoRecibo(int idcr, float cantidad, float monto, List<Concepto> conceptos)
+        public TipoCargo(int idTipoCargo, string categoria, float sueldoBasico)
         {
-            this.idcr = idcr;
-            this.cantidad = cantidad;
-            this.monto = monto;
-            this.conceptos = conceptos;
+            this.idTipoCargo = idTipoCargo;
+            this.categoria = categoria ?? throw new ArgumentNullException(nameof(categoria));
+            this.sueldoBasico = sueldoBasico;
         }
 
-        public int Idcr { get => idcr; set => idcr = value; }
-        public float Cantidad { get => cantidad; set => cantidad = value; }
-        public float Monto { get => monto; set => monto = value; }
-        internal List<Concepto> Conceptos { get => conceptos; set => conceptos = value; }
+        public int IdTipoCargo { get => idTipoCargo; set => idTipoCargo = value; }
+        public string Categoria { get => categoria; set => categoria = value; }
+        public float SueldoBasico { get => sueldoBasico; set => sueldoBasico = value; }
+
+        public override string ToString()
+        {
+            return categoria + "," + sueldoBasico;
+        }
     }
 }
