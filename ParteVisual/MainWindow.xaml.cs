@@ -25,12 +25,12 @@ namespace ParteVisual
         public MainWindow()
         {
             InitializeComponent();
-            BDTipoConcepto tc = new BDTipoConcepto();
+            BDCargo tc = new BDCargo();
 
             //List<TipoCargo> Ltp = tc.SelectTiposCargos();
-            //List<TipoConcepto> Ltp = tc.SelectTiposConceptos();
+            List<Cargo> Ltp = tc.SelectCargos();
 
-            MessageBox.Show(tc.MaxIdDB().ToString());
+            MessageBox.Show(Ltp[5].ToString());
             /*int id = Ltp[0].IdTipoCargo;
 
             Ltp[0].Categoria = "PRUEBA";
