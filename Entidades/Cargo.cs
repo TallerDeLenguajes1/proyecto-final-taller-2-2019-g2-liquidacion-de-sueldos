@@ -35,11 +35,7 @@ namespace Entidades
         }
         public override string ToString()
         {
-            return idpc + " - " + idCargo + " " + funcion + "  " + fechaIngreso + " " + fechaBaja;
-        }
-        public string ConcatenarDatos()
-        {
-            return idpc + ";" + idCargo + ";" + funcion + ";" + fechaIngreso + ";" + fechaBaja;
+            return idpc + "," + idCargo + "," + funcion + "," + fechaIngreso + "," + fechaBaja;
         }
     }
 }
