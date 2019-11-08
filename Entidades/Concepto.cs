@@ -8,32 +8,37 @@ namespace Entidades
 {
     public class Concepto
     {
+        private int idCR;
         private int idConcepto;
         private int idTipoConcepto;
-        private int idrs;
+        private int idRS;
         private int legajo;
         private float monto;
-        private int cantidad;
+        private float cantidad;
         public Concepto() { }    //Constructor por defecto
-        public Concepto(int idConcepto, int idTipoConcepto, int idrs, int legajo, float monto, int cantidad)
+
+        public Concepto(int idCR, int idConcepto, int idTipoConcepto, int idRS, int legajo, float monto, float cantidad)
         {
+            this.idCR = idCR;
             this.idConcepto = idConcepto;
             this.idTipoConcepto = idTipoConcepto;
-            this.idrs = idrs;
+            this.idRS = idRS;
             this.legajo = legajo;
             this.monto = monto;
             this.cantidad = cantidad;
         }
 
+        public int IdCR { get => idCR; set => idCR = value; }
         public int IdConcepto { get => idConcepto; set => idConcepto = value; }
         public int IdTipoConcepto { get => idTipoConcepto; set => idTipoConcepto = value; }
-        public int Idrs { get => idrs; set => idrs = value; }
+        public int IdRS { get => idRS; set => idRS = value; }
         public int Legajo { get => legajo; set => legajo = value; }
         public float Monto { get => monto; set => monto = value; }
-        public int Cantidad { get => cantidad; set => cantidad = value; }
+        public float Cantidad { get => cantidad; set => cantidad = value; }
+
         public override string ToString()
         {
-            return idConcepto + "," + idTipoConcepto + "," + idrs + "," + legajo + "," + monto + "," + cantidad;
+            return idCR + "," + idConcepto + "," + idTipoConcepto + "," + idRS + "," + legajo + "," + monto + "," + cantidad;
         }
 
     }

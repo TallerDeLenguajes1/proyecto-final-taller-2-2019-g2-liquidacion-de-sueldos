@@ -61,8 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BDConcepto.cs" />
     <Compile Include="BDTipoCargo.cs" />
     <Compile Include="BDPersona.cs" />
+    <Compile Include="BDTipoConcepto.cs" />
+    <Compile Include="BDCargo.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
