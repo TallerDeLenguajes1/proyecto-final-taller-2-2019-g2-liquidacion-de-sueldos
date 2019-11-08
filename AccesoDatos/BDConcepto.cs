@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace AccesoDatos
 {
-    public class BDCargo
+    public class BDConcepto
     {
-        private List<Cargo> cargos;
+        private List<Concepto> conceptos;
         Conexion conexion;
-        public BDCargo()
+        public BDConcepto()
         {
-            this.cargos = new List<Cargo>();
+            this.conceptos = new List<Concepto>();
             this.conexion = new Conexion();
         }
         //Trae el maximo id de la tabla cargos de la base de datos
@@ -23,14 +23,14 @@ namespace AccesoDatos
             int id = -1;
             try
             {
-                const string qry = "SELECT max(idPC)+1 as idpc FROM personascargos;";
+                const string qry = "SELECT max(idCR)+1 as idconcepto FROM conceptosrecibos;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            id = Convert.ToInt32(rd["idpc"].ToString());
+                            id = Convert.ToInt32(rd["idconcepto"].ToString());
                         }
                     }
                     conexion.Desconectar();
@@ -42,27 +42,26 @@ namespace AccesoDatos
             }
             return id;
         }
-        public List<Cargo> SelectCargos()
+        
+        public List<Concepto> SelectConceptos()
         {
             try
             {
-                const string qry = "SELECT * FROM personascargos";
+                const string qry = "SELECT * FROM conceptosrecibos";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            cargos.Add(new Cargo
+                            conceptos.Add(new Concepto
                             {
-                                IdPC = Convert.ToInt32(rd["idPC"].ToString()),
+                                IdCR = Convert.ToInt32(rd["idCR"].ToString()),
+                                IdConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
+                                IdRS = Convert.ToInt32(rd["idRS"].ToString()),
                                 Legajo = Convert.ToInt32(rd["legajo"].ToString()),
-                                IdCargo = Convert.ToInt32(rd["idcargo"].ToString()),
-                                Funcion= rd["funcion"].ToString(),
-                                FechaIngreso = Convert.ToDateTime(rd["fechaIngreso"].ToString()),
-                                FechaBaja = rd["fechaBaja"] == DBNull.Value ? Convert.ToDateTime("1990-1-1") 
-                                    : Convert.ToDateTime(rd["fechaBaja"].ToString()),
-                                Antiguedad = Convert.ToInt32(rd["antiguedad"].ToString())
+                                Monto = (float)Convert.ToDouble(rd["monto"].ToString()),
+                                Cantidad = (float)Convert.ToDouble(rd["cantidad"].ToString())
                             });
                         }
                     }
@@ -74,24 +73,23 @@ namespace AccesoDatos
                 Console.WriteLine(ex.Message);
             }
 
-            return cargos;
+            return conceptos;
         }
         
-        public bool UpdateCargo(Cargo cargo)
+        public bool UpdateConcepto(Concepto concepto)
         {
             bool estadoQry = false;
             try
             {
-                string qry = "UPDATE personascargos SET idPC= @idPC, idCargo= @idCargo, legajo = @legajo, funcion = @funcion, fechaIngreso = @fechaIngreso, fechaBaja = @fechaBaja, antiguedad = @antiguedad WHERE idPC = @idPC";
+                string qry = "UPDATE conceptosrecibos SET idCR = @idCR, idConcepto = @idConepto, idRS = @idRS, legajo = @legajo, monto = @monto, cantidad = @cantidad WHERE idCR = @idCR";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idPC", cargo.IdPC);
-                    cmd.Parameters.AddWithValue("@idCargo", cargo.IdCargo);
-                    cmd.Parameters.AddWithValue("@legajo", cargo.Legajo);
-                    cmd.Parameters.AddWithValue("@funcion", cargo.Funcion);
-                    cmd.Parameters.AddWithValue("@fechaIngreso", cargo.FechaIngreso);
-                    cmd.Parameters.AddWithValue("@fechaBaja", cargo.FechaBaja);
-                    cmd.Parameters.AddWithValue("@antiguedad", cargo.Antiguedad);
+                    cmd.Parameters.AddWithValue("@idCR", concepto.IdCR);
+                    cmd.Parameters.AddWithValue("@idConcepto", concepto.IdConcepto);
+                    cmd.Parameters.AddWithValue("@idRS", concepto.IdRS);
+                    cmd.Parameters.AddWithValue("@legajo", concepto.Legajo);
+                    cmd.Parameters.AddWithValue("@monto", concepto.Monto);
+                    cmd.Parameters.AddWithValue("@cantidad", concepto.Cantidad);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;
@@ -110,25 +108,22 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
-        
-        public bool InsertCargo(Cargo cargo)
+        public bool InsertConcepto(Concepto concepto)
         {
             bool estadoQry = false;
             int nuevoId = MaxIdDB();
             try
             {
-                string qry = "insert into personascargos (idPC, idCargo, legajo, funcion, fechaIngreso, fechaBaja, antiguedad) values (@idPC, @idCargo, @legajo, @funcion, @fechaIngreso, @fechaBaja, @antiguedad)";
+                string qry = "insert into conceptosrecibos (idCR, idConcepto, idRS, legajo, monto, cantidad) values (@idCR, @idConepto, @idRS, @legajo, @monto, @cantidad)";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idPC", cargo.IdPC);
-                    cmd.Parameters.AddWithValue("@idCargo", cargo.IdCargo);
-                    cmd.Parameters.AddWithValue("@legajo", cargo.Legajo);
-                    cmd.Parameters.AddWithValue("@funcion", cargo.Funcion);
-                    cmd.Parameters.AddWithValue("@fechaIngreso", cargo.FechaIngreso);
-                    cmd.Parameters.AddWithValue("@fechaBaja", cargo.FechaBaja);
-                    cmd.Parameters.AddWithValue("@antiguedad", cargo.Antiguedad);
+                    cmd.Parameters.AddWithValue("@idCR", concepto.IdCR);
+                    cmd.Parameters.AddWithValue("@idConcepto", concepto.IdConcepto);
+                    cmd.Parameters.AddWithValue("@idRS", concepto.IdRS);
+                    cmd.Parameters.AddWithValue("@legajo", concepto.Legajo);
+                    cmd.Parameters.AddWithValue("@monto", concepto.Monto);
+                    cmd.Parameters.AddWithValue("@cantidad", concepto.Cantidad);
                     if (cmd.ExecuteNonQuery() == 1)
-                        if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;
                     }
@@ -145,16 +140,16 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
-        public bool DeleteCargo(Cargo cargo)
+        public bool DeleteConcepto(Concepto concepto)
         {
             bool estadoQry = false;
             try
             {
-                //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN PersonasCargos
-                string qry = "DELETE FROM personascargos WHERE idPC = @idPC";
+                //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN conceptosrecibos
+                string qry = "DELETE FROM conceptosrecibos WHERE idCR = @idCR";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idPC", cargo.IdPC);
+                    cmd.Parameters.AddWithValue("@idCR", concepto.IdCR);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;

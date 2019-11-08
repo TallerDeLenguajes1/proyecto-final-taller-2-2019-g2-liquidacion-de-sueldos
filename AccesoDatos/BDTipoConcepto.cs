@@ -73,7 +73,7 @@ namespace AccesoDatos
 
             return tiposConceptos;
         }
-        public bool UpdateTipoCargo(TipoConcepto tipoConcepto)
+        public bool UpdateTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
             try
@@ -81,9 +81,9 @@ namespace AccesoDatos
                 string qry = "UPDATE conceptos SET concepto = @concepto, monto = @monto WHERE idconcepto = @idTipoConcepto";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@categoria", tipoConcepto.Concepto);
-                    cmd.Parameters.AddWithValue("@sueldoBasico", tipoConcepto.Monto);
-                    cmd.Parameters.AddWithValue("@idTipoCargo", tipoConcepto.IdTipoConcepto);
+                    cmd.Parameters.AddWithValue("@concepto", tipoConcepto.Concepto);
+                    cmd.Parameters.AddWithValue("@monto", tipoConcepto.Monto);
+                    cmd.Parameters.AddWithValue("@idTipoConcepto", tipoConcepto.IdTipoConcepto);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;
@@ -102,7 +102,7 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
-        public bool InsertTipoCargo(TipoCargo tipoCargo)
+        public bool InsertTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
             int nuevoId = MaxIdDB();
@@ -111,9 +111,9 @@ namespace AccesoDatos
                 string qry = "insert into conceptos (idconcepto,concepto,monto) values (@idconcepo,@Concepto, @monto)";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@concepto", tipoCargo.Categoria);
-                    cmd.Parameters.AddWithValue("@monto", tipoCargo.SueldoBasico);
-                    cmd.Parameters.AddWithValue("@idConcepto", nuevoId);
+                    cmd.Parameters.AddWithValue("@concepto", tipoConcepto.Concepto);
+                    cmd.Parameters.AddWithValue("@monto", tipoConcepto.Monto);
+                    cmd.Parameters.AddWithValue("@idConcepto", tipoConcepto.IdTipoConcepto);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;
@@ -131,12 +131,12 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
-        public bool DeleteTipoCargo(TipoConcepto tipoConcepto)
+        public bool DeleteTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
             try
             {
-                //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN ConceptosRecibos
+                //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN conceptos
                 string qry = "DELETE FROM conceptos WHERE idconcepto = @idTipoConcepto";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {

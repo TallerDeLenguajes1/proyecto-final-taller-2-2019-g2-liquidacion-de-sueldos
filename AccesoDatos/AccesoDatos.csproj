@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BDConcepto.cs" />
     <Compile Include="BDTipoCargo.cs" />
     <Compile Include="BDPersona.cs" />
     <Compile Include="BDTipoConcepto.cs" />
