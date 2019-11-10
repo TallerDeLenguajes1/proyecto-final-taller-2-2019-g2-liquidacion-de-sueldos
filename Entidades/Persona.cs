@@ -16,10 +16,11 @@ namespace Entidades
         private string sexo;
         private string baja;
         private List<Cargo> cargos;
+        private List<ReciboSueldo> recibos;
 
         public Persona() { }//constructor por defecto
 
-        public Persona(int legajo, string nombres, string apellidos, string documento, DateTime fechaNacimiento, string sexo, string baja, List<Cargo> cargos)
+        public Persona(int legajo, string nombres, string apellidos, string documento, DateTime fechaNacimiento, string sexo, string baja, List<Cargo> cargos, List<ReciboSueldo> recibos)
         {
             this.legajo = legajo;
             this.nombres = nombres;
@@ -29,6 +30,7 @@ namespace Entidades
             this.sexo = sexo;
             this.baja = baja;
             this.cargos = cargos;
+            this.recibos = recibos;
         }
 
         public int Legajo { get => legajo; set => legajo = value; }
@@ -39,8 +41,8 @@ namespace Entidades
         public string Sexo { get => sexo; set => sexo = value; }
         public string Baja { get => baja; set => baja = value; }
         public List<Cargo> Cargos { get => cargos; set => cargos = value; }
+        public List<ReciboSueldo> Recibos { get => recibos; set => recibos = value; }
 
-         
         public override string ToString()
         {
             return legajo + "," + nombres + "," + apellidos + "," + documento + ","+ fechaNacimiento+""+ sexo + "," + baja;
