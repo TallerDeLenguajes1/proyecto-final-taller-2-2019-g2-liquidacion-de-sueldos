@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace AccesoDatos
 {
     class BDReciboSueldo
@@ -55,7 +54,7 @@ namespace AccesoDatos
                         {
                             reciboSueldo.Add(new ReciboSueldo
                             {
-                                IdRS = Convert.ToInt32(rd["idrs"].ToString()),
+                                Idrs = Convert.ToInt32(rd["idrs"].ToString()),
                                 Legajo = Convert.ToInt32(rd["legajo"].ToString()),
                                 Mes = Convert.ToInt32(rd["mes"].ToString()),
                                 Anio = Convert.ToInt32(rd["anio"].ToString()),
@@ -83,7 +82,7 @@ namespace AccesoDatos
                 string qry = "UPDATE recibossueldos SET idrs= @idrs, legajo= @legajo, mes= @mes, anio= @anio, sueldoBruto= @sueldoBruto WHERE idrs = @idrs";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idrs", reciboSueldo.IdRS);
+                    cmd.Parameters.AddWithValue("@idrs", reciboSueldo.Idrs);
                     cmd.Parameters.AddWithValue("@legajo", reciboSueldo.Legajo);
                     cmd.Parameters.AddWithValue("@mes", reciboSueldo.Mes);
                     cmd.Parameters.AddWithValue("@anio", reciboSueldo.Anio);
@@ -149,7 +148,7 @@ namespace AccesoDatos
                 string qry = "DELETE FROM recibossueldos WHERE idrs = @idrs";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idrs", reciboSueldo.IdRS);
+                    cmd.Parameters.AddWithValue("@idrs", reciboSueldo.Idrs);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;

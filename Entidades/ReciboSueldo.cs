@@ -8,7 +8,7 @@ namespace Entidades
 {
     public class ReciboSueldo
     {
-        private int idRS;
+        private int idrs;
         private int legajo;
         private int mes;
         private int anio;
@@ -17,33 +17,32 @@ namespace Entidades
         private List<Concepto> conceptos;
 
         public ReciboSueldo() { }
-        public ReciboSueldo(int idRS, int legajo, int mes, int anio, float sueldoBruto, float sueldoNeto)
+        public ReciboSueldo(int idrs, int legajo, int mes, int anio, float sueldoBruto, float sueldoNeto, List<Concepto> conceptos)
         {
-            this.idRS = idRS;
+            this.idrs = idrs;
             this.legajo = legajo;
             this.mes = mes;
             this.anio = anio;
             this.sueldoBruto = sueldoBruto;
             this.sueldoNeto = sueldoNeto;
-            //this.conceptos = conceptos;
+            this.conceptos = conceptos;
         }
-        public int IdRS { get => idRS; set => idRS = value; }
+        public int Idrs { get => idrs; set => idrs = value; }
         public int Legajo { get => legajo; set => legajo = value; }
         public int Mes { get => mes; set => mes = value; }
         public int Anio { get => anio; set => anio = value; }
         public float SueldoBruto { get => sueldoBruto; set => sueldoBruto = value; }
         public float SueldoNeto { get => sueldoNeto; set => sueldoNeto = value; }
-       // public List<Concepto> Conceptos { get => conceptos; set => conceptos = value; }
-       
+        public List<Concepto> Conceptos { get => conceptos; set => conceptos = value; }
 
         public override string ToString()
         {
-            return idRS + "," + legajo + "," + mes + "," + anio + "," + sueldoBruto + "," + sueldoNeto;
+            return idrs + "," + legajo + "," + mes + "," + anio + "," + sueldoBruto + "," + sueldoNeto;
         }
         public float calcularMonto()
         {
             float total = 0;
-            foreach(Concepto concepto in conceptos)
+            foreach (Concepto concepto in conceptos)
             {
                 total += concepto.Monto;
             }

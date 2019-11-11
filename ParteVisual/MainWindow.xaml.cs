@@ -26,7 +26,7 @@ namespace ParteVisual
         {
             InitializeComponent();
             BDConcepto tc = new BDConcepto();
-
+             
             //List<TipoCargo> Ltp = tc.SelectTiposCargos();
             List<Concepto> Ltp = tc.SelectConceptos();
 
@@ -56,10 +56,10 @@ namespace ParteVisual
             int id = lpr[0].Legajo;
             lpr[0].Nombres = "PRUEBA";
             pr.UpdatePersona(lpr[0]);
-            //lpr = pr.SelectTiposCargos();
+            
             MessageBox.Show(lpr[30].ToString());
-            //MessageBox.Show(tc.MaxIdDB().ToString());
-           // Persona PersonaNueva = new Persona(39816, "facundo", "delgado", "32222222", 18 / 12 / 2019, "m", "f", List < Cargo > cargos);
+            MessageBox.Show(pr.DeletePersona(lpr[0]).ToString());
+
 
         }
     }
