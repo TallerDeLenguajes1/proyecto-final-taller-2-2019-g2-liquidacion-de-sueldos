@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace AccesoDatos
 {
-    class BDReciboSueldo
+    public class BDReciboSueldo
     {
         private List<ReciboSueldo> reciboSueldo;
         Conexion conexion;
