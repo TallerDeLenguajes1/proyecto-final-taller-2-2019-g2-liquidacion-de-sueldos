@@ -1,5 +1,6 @@
 ﻿using AccesoDatos;
 using Entidades;
+using ParteVisual.vistas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,13 @@ namespace ParteVisual
         public MainWindow()
         {
             InitializeComponent();
-            BDConcepto tc = new BDConcepto();
+            //BDConcepto tc = new BDConcepto();
              
             //List<TipoCargo> Ltp = tc.SelectTiposCargos();
-            List<Concepto> Ltp = tc.SelectConceptos();
+            //List<Concepto> Ltp = tc.SelectConceptos();
 
             //MessageBox.Show(tc.MaxIdDB().ToString());
-            MessageBox.Show(Ltp[5].ToString());
+            //MessageBox.Show(Ltp[5].ToString());
             /*int id = Ltp[0].IdTipoCargo;
 
             Ltp[0].Categoria = "PRUEBA";
@@ -49,7 +50,7 @@ namespace ParteVisual
             //Ltp = tc.SelectTiposCargos();
             //MessageBox.Show(Ltp[Ltp.Count() - 1].ToString());
             //MessageBox.Show(Ltp[0].ToString());
-
+            /*
             BDPersona pr = new BDPersona();//declaro una instancia ,objeto de BDPersona 
             List<Persona> lpr = pr.SelectPersonas();//declaro una lista de la clase persona ,selecciono a las personas de la tabla
             MessageBox.Show(lpr[5].ToString());//muestro los valores de esa tabla
@@ -59,8 +60,14 @@ namespace ParteVisual
             
             MessageBox.Show(lpr[30].ToString());
             MessageBox.Show(pr.DeletePersona(lpr[0]).ToString());
+            */
 
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VTipoCargo vTipoCargo = new VTipoCargo();
+            vTipoCargo.ShowDialog();
         }
     }
 }
