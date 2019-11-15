@@ -18,7 +18,7 @@ namespace AccesoDatos
             this.conexion = new Conexion();
         }
         //Trae el maximo id de la tabla cargos de la base de datos
-        private int MaxIdDB()
+        public int MaxIdDB()
         {
             int id = -1;
             try
@@ -114,7 +114,7 @@ namespace AccesoDatos
             int nuevoId = MaxIdDB();
             try
             {
-                string qry = "insert into conceptosrecibos (idCR, idConcepto, idRS, legajo, monto, cantidad) values (@idCR, @idConepto, @idRS, @legajo, @monto, @cantidad)";
+                string qry = "insert into conceptosrecibos (idCR, idConcepto, idRS, legajo, monto, cantidad) values (@idCR, @idConcepto, @idRS, @legajo, @monto, @cantidad)";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idCR", concepto.IdCR);
@@ -129,7 +129,7 @@ namespace AccesoDatos
                     }
                     else
                     {
-                        estadoQry = false;
+                        estadoQry = false;  
                     }
                     conexion.Desconectar();
                 }

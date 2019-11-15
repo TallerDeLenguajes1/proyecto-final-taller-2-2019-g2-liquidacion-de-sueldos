@@ -22,50 +22,49 @@ namespace ParteVisual.vistas
     public partial class FAMReciboSueldo : Window
     {
         // Clases de Acceso a Datos
-        BDTipoConcepto bdconcepto = new BDTipoConcepto();
+        BDTipoConcepto bdtipoconcepto = new BDTipoConcepto();
         BDPersona bdpersona = new BDPersona();
+        BDConcepto bdconcepto = new BDConcepto();
+        BDReciboSueldo bdrecibosueldo = new BDReciboSueldo();
 
         // Listas
-        List<TipoConcepto> tiposconceptos = new List<TipoConcepto>();
-        List<TipoConcepto> conceptosagregados = new List<TipoConcepto>();
-        List<float> cantidades = new List<float>();
+        private List<Concepto> recibossueldos = new List<Concepto>();
+        private List<TipoConcepto> conceptosagregados = new List<TipoConcepto>();
+        private List<float> cantidades = new List<float>();
+        List<TipoConcepto> tiposconceptos = new List<TipoConcepto>();        
         List<Persona> personas = new List<Persona>();
-        private List<Concepto> recibossueldos =  new List<Concepto>();
+        
 
         // Nuevo ReciboSueldo   
         private ReciboSueldo recibosueldo = new ReciboSueldo();
 
         // Persona a quien pertenece el Recibo
-        Persona persona = new Persona();
-
-        //Mes y anio para crear recibosueldo
-        int mes;
-        int anio;
-
-        
+        private Persona persona = new Persona();        
         
         public ReciboSueldo Recibosueldo { get => recibosueldo; set => recibosueldo = value; }
         public List<Concepto> Recibossueldos { get => recibossueldos; set => recibossueldos = value; }
+        public Persona Persona { get => persona; set => persona = value; }
+        public List<TipoConcepto> Conceptosagregados { get => conceptosagregados; set => conceptosagregados = value; }
+        public List<float> Cantidades { get => cantidades; set => cantidades = value; }
 
         public FAMReciboSueldo()
         {
             InitializeComponent();
-            tiposconceptos = bdconcepto.SelectTiposConceptos();
+            tiposconceptos = bdtipoconcepto.SelectTiposConceptos();
             personas = bdpersona.SelectPersonas();
             lstTipoConcepto.ItemsSource = tiposconceptos;
             lstPersona.ItemsSource = personas;
             cldMesAnio.SelectedDate = DateTime.Now;
-            this.persona = null;
-            //recibosueldo.Mes = cldMesAnio.SelectedDate.Value.Month;
-            //recibosueldo.Anio = cldMesAnio.SelectedDate.Value.Year;
+            this.Persona = null;
+            recibosueldo.Idrs = bdrecibosueldo.MaxIdDB();            
         }
         
         private void lstAgregados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             TipoConcepto quitarconcepto = (TipoConcepto) lstAgregados.SelectedItem;
             int indice = lstAgregados.Items.IndexOf(quitarconcepto);
-            conceptosagregados.Remove(quitarconcepto);
-            cantidades.Remove(cantidades[indice]);
+            Conceptosagregados.Remove(quitarconcepto);
+            Cantidades.Remove(Cantidades[indice]);
             lstAgregados.Items.Remove(quitarconcepto);
             lstAgregados.Items.Refresh();
             
@@ -73,7 +72,7 @@ namespace ParteVisual.vistas
 
         private void lstPersona_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            persona = (Persona) lstPersona.SelectedItem;
+            Persona = (Persona) lstPersona.SelectedItem;
             MessageBox.Show("Persona Seleccionada");
             
         }
@@ -94,8 +93,8 @@ namespace ParteVisual.vistas
             else
             {
                 cantidad = outParse;
-                conceptosagregados.Add(nuevoconcepto);
-                cantidades.Add(cantidad);
+                Conceptosagregados.Add(nuevoconcepto);
+                Cantidades.Add(cantidad);
                 lstAgregados.Items.Add(nuevoconcepto);
                 lstAgregados.Items.Refresh();
             }
@@ -108,13 +107,27 @@ namespace ParteVisual.vistas
 
         private void btnCrearRecibo_Click(object sender, RoutedEventArgs e)
         {
-            if(this.persona ==  null)
+            if(this.Persona ==  null)
             {
                 MessageBox.Show("No selecciono ninguna persona");
             }
-            else if (true)
+            else
             {
+                // LLenando campos de ReciboSueldo
+                recibosueldo.Legajo = Persona.Legajo;
+                recibosueldo.Mes = cldMesAnio.SelectedDate.Value.Month; 
+                recibosueldo.Anio = cldMesAnio.SelectedDate.Value.Year;
 
+                // Culculando SueldoBruto
+                float total = 0;
+                for (int i = 0; i < Conceptosagregados.Count; i++)
+                {
+                    total += Conceptosagregados[i].Monto;
+                }
+                recibosueldo.SueldoBruto = total;
+                recibosueldo.SueldoNeto = total;
+
+                this.Close();
             }
         }
     }

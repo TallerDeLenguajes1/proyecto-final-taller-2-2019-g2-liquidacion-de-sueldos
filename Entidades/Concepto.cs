@@ -10,7 +10,6 @@ namespace Entidades
     {
         private int idCR;
         private int idConcepto;
-        private int idTipoConcepto;
         private int idRS;
         private int legajo;
         private float monto;
@@ -18,11 +17,10 @@ namespace Entidades
         private Concepto tipoConcepto;
         public Concepto() { }    //Constructor por defecto
 
-        public Concepto(int idCR, int idConcepto, int idTipoConcepto, int idRS, int legajo, float monto, float cantidad, Concepto tipoConcepto)
+        public Concepto(int idCR, int idConcepto, int idRS, int legajo, float monto, float cantidad, Concepto tipoConcepto)
         {
             this.idCR = idCR;
             this.idConcepto = idConcepto;
-            this.idTipoConcepto = idTipoConcepto;
             this.idRS = idRS;
             this.legajo = legajo;
             this.monto = monto;
@@ -32,7 +30,6 @@ namespace Entidades
 
         public int IdCR { get => idCR; set => idCR = value; }
         public int IdConcepto { get => idConcepto; set => idConcepto = value; }
-        public int IdTipoConcepto { get => idTipoConcepto; set => idTipoConcepto = value; }
         public int IdRS { get => idRS; set => idRS = value; }
         public int Legajo { get => legajo; set => legajo = value; }
         public float Monto { get => monto; set => monto = value; }
@@ -41,7 +38,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return idCR + "," + idConcepto + "," + idTipoConcepto + "," + idRS + "," + legajo + "," + monto + "," + cantidad;
+            return idCR + "," + idConcepto + "," + idRS + "," + legajo + "," + monto + "," + cantidad;
         }
 
     }

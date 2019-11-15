@@ -17,7 +17,7 @@ namespace AccesoDatos
             this.conexion = new Conexion();
         }
         //Trae el maximo id de la tabla ReciboSueldo de la base de datos
-        private int MaxIdDB()
+        public int MaxIdDB()
         {
             int id = -1;
             try
