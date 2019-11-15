@@ -28,15 +28,24 @@ namespace ParteVisual.vistas
         // Listas
         List<TipoConcepto> tiposconceptos = new List<TipoConcepto>();
         List<TipoConcepto> conceptosagregados = new List<TipoConcepto>();
+        List<float> cantidades = new List<float>();
         List<Persona> personas = new List<Persona>();
+        private List<Concepto> recibossueldos =  new List<Concepto>();
 
         // Nuevo ReciboSueldo   
-        ReciboSueldo recibosueldo = new ReciboSueldo();
+        private ReciboSueldo recibosueldo = new ReciboSueldo();
 
         // Persona a quien pertenece el Recibo
         Persona persona = new Persona();
 
-        public Persona Persona { get => persona; set => persona = value; }
+        //Mes y anio para crear recibosueldo
+        int mes;
+        int anio;
+
+        
+        
+        public ReciboSueldo Recibosueldo { get => recibosueldo; set => recibosueldo = value; }
+        public List<Concepto> Recibossueldos { get => recibossueldos; set => recibossueldos = value; }
 
         public FAMReciboSueldo()
         {
@@ -46,24 +55,20 @@ namespace ParteVisual.vistas
             lstTipoConcepto.ItemsSource = tiposconceptos;
             lstPersona.ItemsSource = personas;
             cldMesAnio.SelectedDate = DateTime.Now;
+            this.persona = null;
             //recibosueldo.Mes = cldMesAnio.SelectedDate.Value.Month;
             //recibosueldo.Anio = cldMesAnio.SelectedDate.Value.Year;
         }
-
-        private void lstTipoConcepto_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            TipoConcepto nuevoconcepto = (TipoConcepto) lstTipoConcepto.SelectedItem;
-            lstAgregados.Items.Add(nuevoconcepto);
-            lstAgregados.Items.Refresh();
-            conceptosagregados.Add(nuevoconcepto);
-        }
-
+        
         private void lstAgregados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             TipoConcepto quitarconcepto = (TipoConcepto) lstAgregados.SelectedItem;
+            int indice = lstAgregados.Items.IndexOf(quitarconcepto);
+            conceptosagregados.Remove(quitarconcepto);
+            cantidades.Remove(cantidades[indice]);
             lstAgregados.Items.Remove(quitarconcepto);
             lstAgregados.Items.Refresh();
-            conceptosagregados.Remove(quitarconcepto);
+            
         }
 
         private void lstPersona_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -75,7 +80,42 @@ namespace ParteVisual.vistas
 
         private void btnagregarConcepto_Click(object sender, RoutedEventArgs e)
         {
+            TipoConcepto nuevoconcepto = (TipoConcepto)lstTipoConcepto.SelectedItem;
+            float cantidad = new float();
+            float outParse;
+            if (txtCantidad.Text == null || txtCantidad.Text == "")
+            {
+                MessageBox.Show("Este no puede estar vacio");
+            }
+            else if (!float.TryParse(txtCantidad.Text, out outParse) || txtCantidad.Text == null)
+            {
+                MessageBox.Show("Este campo debe ser numérico");
+            }
+            else
+            {
+                cantidad = outParse;
+                conceptosagregados.Add(nuevoconcepto);
+                cantidades.Add(cantidad);
+                lstAgregados.Items.Add(nuevoconcepto);
+                lstAgregados.Items.Refresh();
+            }
+        }
 
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCrearRecibo_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.persona ==  null)
+            {
+                MessageBox.Show("No selecciono ninguna persona");
+            }
+            else if (true)
+            {
+
+            }
         }
     }
 }
