@@ -26,10 +26,21 @@ namespace ParteVisual
         public MainWindow()
         {
             InitializeComponent();
+            
+            
 
-            VReciboSueldo vistars = new VReciboSueldo();
-            vistars.ShowDialog();
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VTipoCargo vTipoCargo = new VTipoCargo();
+            vTipoCargo.ShowDialog();
+        }
+
+        private void btnReciboSueldo_Click(object sender, RoutedEventArgs e)
+        {
+            VReciboSueldo vReciboSueldo = new VReciboSueldo();
+            vReciboSueldo.ShowDialog();
         }
     }
 }

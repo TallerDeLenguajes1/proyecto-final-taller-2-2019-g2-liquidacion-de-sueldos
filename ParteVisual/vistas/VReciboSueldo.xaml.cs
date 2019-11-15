@@ -27,11 +27,14 @@ namespace ParteVisual.vistas
         {
             InitializeComponent();
             recibossueldos = bdrecibosueldo.SelectReciboSueldos();
-            for (int i = 0; i < recibossueldos.Count; i++)
-            {
-                lstReciboSueldo.Items.Add(recibossueldos[i]);
-            }
+            lstReciboSueldo.ItemsSource = recibossueldos;
+            lstReciboSueldo.SelectedItem = 0;
         }
-        
+
+        private void bntAgregarRS_Click(object sender, RoutedEventArgs e)
+        {
+            FAMReciboSueldo vistafmars = new FAMReciboSueldo();
+            vistafmars.ShowDialog();
+        }
     }
 }

@@ -75,14 +75,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="vistas\FAMReciboSueldo.xaml.cs">
+      <DependentUpon>FAMReciboSueldo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vistas\FAMTipoCargo.xaml.cs">
       <DependentUpon>FAMTipoCargo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="vistas\VConcepto.xaml.cs">
-      <DependentUpon>VConcepto.xaml</DependentUpon>
-    </Compile>
     <Compile Include="vistas\VTipoCargo.xaml.cs">
       <DependentUpon>VTipoCargo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vistas\VReciboSueldo.xaml.cs">
+      <DependentUpon>VReciboSueldo.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -96,13 +99,17 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="vistas\FAMReciboSueldo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="vistas\FAMTipoCargo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="vistas\VConcepto.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="vistas\VReciboSueldo.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="vistas\VTipoCargo.xaml">
       <SubType>Designer</SubType>

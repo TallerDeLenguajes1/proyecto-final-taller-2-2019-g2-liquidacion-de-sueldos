@@ -9,7 +9,7 @@
     <Grid>
         <ListBox x:Name="lstReciboSueldo" HorizontalAlignment="Left" Height="261" VerticalAlignment="Top" Width="226" Margin="52,79,0,0"/>
         <ListBox x:Name="lstConcepto" HorizontalAlignment="Left" Height="261" Margin="557,79,0,0" VerticalAlignment="Top" Width="204"/>
-        <Button x:Name="bntAgregarRS" Content="Agregar" HorizontalAlignment="Left" Margin="359,100,0,0" VerticalAlignment="Top" Width="75" Height="39"/>
+        <Button x:Name="bntAgregarRS" Content="Agregar" HorizontalAlignment="Left" Margin="359,100,0,0" VerticalAlignment="Top" Width="75" Height="39" Click="bntAgregarRS_Click"/>
         <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="359,169,0,0" VerticalAlignment="Top" Width="75" Height="40"/>
         <Button Content="Eliminar" HorizontalAlignment="Left" Margin="359,234,0,0" VerticalAlignment="Top" Width="75" Height="40"/>
 

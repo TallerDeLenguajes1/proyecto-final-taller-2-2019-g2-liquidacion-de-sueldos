@@ -9,6 +9,7 @@
     <Grid>
         <Button Content="Personas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Cargos" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name="btnReciboSueldo" Content="Recibos de Sueldo" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Width="128" Click="btnReciboSueldo_Click"/>
 
     </Grid>
 </Window>
