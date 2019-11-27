@@ -42,5 +42,16 @@ namespace ParteVisual
             VReciboSueldo vReciboSueldo = new VReciboSueldo();
             vReciboSueldo.ShowDialog();
         }
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            VTipoConcepto vTipoConcepto = new VTipoConcepto();
+            vTipoConcepto.ShowDialog();
+        }
+
+
+
+
     }
 }
