@@ -17,7 +17,9 @@ namespace AccesoDatos
             this.tiposCargos = new List<TipoCargo>();
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla cargos de la base de datos
+        /// <summary>
+        /// Trae el maximo id de cargos
+        /// </summary>
         private int MaxIdDB()
         {
             int id = -1;
@@ -42,6 +44,9 @@ namespace AccesoDatos
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista con todos los cargos
+        /// </summary>
         public List<TipoCargo> SelectTiposCargos()
         {
             try
@@ -71,6 +76,9 @@ namespace AccesoDatos
             
             return tiposCargos;
         }
+        /// <summary>
+        /// Actualiza un Cargo en la base de datos
+        /// </summary>
         public bool UpdateTipoCargo(TipoCargo tipoCargo)
         {
             bool estadoQry = false;
@@ -100,6 +108,9 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega un nuevo cargo en la base de datos
+        /// </summary>
         public bool InsertTipoCargo(TipoCargo tipoCargo)
         {
             bool estadoQry = false;
@@ -129,6 +140,9 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Realiza una baja logica de un cargo en la base de datos
+        /// </summary>
         public bool DeleteTipoCargo(TipoCargo tipoCargo)
         {
             bool estadoQry = false;
@@ -156,6 +170,45 @@ namespace AccesoDatos
                 Console.WriteLine(ex.Message);
             }
             return estadoQry;
+        }
+        /// <summary>
+        /// Retorna una lista de personas que ocuparon u ocupan un determinado cargo
+        /// </summary>
+        public List<Cargo> SelectPersonasCargos(TipoCargo tipocargo)
+        {
+            List<Cargo> personasCargos = new List<Cargo>();
+            try
+            {
+                const string qry = "select * from personascargos inner join personas using (legajo) inner join cargos using (idCargo) where categoria = @categoria;";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@idTipoCargo", tipocargo.Categoria);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            personasCargos.Add(new Cargo
+                            {
+                                IdPC = Convert.ToInt32(rd["idPC"].ToString()),
+                                IdCargo = Convert.ToInt32(rd["idcargo"].ToString()),
+                                Legajo = Convert.ToInt32(rd["legajo"].ToString()),
+                                Funcion = rd["legajo"].ToString(),
+                                FechaIngreso = Convert.ToDateTime(rd["fechaIngreso"].ToString()),
+                                FechaBaja = DateTime.MinValue,
+                                Antiguedad = Convert.ToInt32(rd["antiguedad"].ToString()),
+                                TipoCargo = tipocargo
+                            });
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return personasCargos;
         }
     }
 }

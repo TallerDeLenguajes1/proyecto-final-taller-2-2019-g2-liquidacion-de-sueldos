@@ -15,10 +15,10 @@ namespace Entidades
         private DateTime fechaIngreso;
         private DateTime fechaBaja;
         private int antiguedad;
-        private Cargo tipoCargo;
+        private TipoCargo tipoCargo;
         public Cargo() { }//constructor por defecto
 
-        public Cargo(int idPC, int idCargo, int legajo, string funcion, DateTime fechaIngreso, DateTime fechaBaja, int antiguedad, Cargo tipoCargo)
+        public Cargo(int idPC, int idCargo, int legajo, string funcion, DateTime fechaIngreso, DateTime fechaBaja, int antiguedad, TipoCargo tipoCargo)
         {
             this.idPC = idPC;
             this.idCargo = idCargo;
@@ -37,7 +37,7 @@ namespace Entidades
         public DateTime FechaIngreso { get => fechaIngreso; set => fechaIngreso = value; }
         public DateTime FechaBaja { get => fechaBaja; set => fechaBaja = value; }
         public int Antiguedad { get => antiguedad; set => antiguedad = value; }
-        public Cargo TipoCargo { get => tipoCargo; set => tipoCargo = value; }
+        public TipoCargo TipoCargo { get => tipoCargo; set => tipoCargo = value; }
 
                           
         //Funcion Antiguedad
