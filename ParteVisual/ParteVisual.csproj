@@ -81,11 +81,17 @@
     <Compile Include="vistas\FAMTipoCargo.xaml.cs">
       <DependentUpon>FAMTipoCargo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="vistas\FAMTipoConcepto.xaml.cs">
+      <DependentUpon>FAMTipoConcepto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vistas\VTipoCargo.xaml.cs">
       <DependentUpon>VTipoCargo.xaml</DependentUpon>
     </Compile>
     <Compile Include="vistas\VReciboSueldo.xaml.cs">
       <DependentUpon>VReciboSueldo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vistas\VTipoConcepto.xaml.cs">
+      <DependentUpon>VTipoConcepto.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -107,11 +113,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="vistas\FAMTipoConcepto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="vistas\VReciboSueldo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="vistas\VTipoCargo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="vistas\VTipoConcepto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

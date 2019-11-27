@@ -23,14 +23,14 @@ namespace AccesoDatos
             int id = -1;
             try
             {
-                const string qry = "SELECT max(idConcepto)+1 as idconcepto FROM conceptos;";
+                const string qry = "SELECT max(idconcepto)+1 as idconcepto FROM conceptos;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            id = Convert.ToInt32(rd["idConcepto"].ToString());
+                            id = Convert.ToInt32(rd["idconcepto"].ToString());
                         }
                     }
                     conexion.Desconectar();
@@ -46,6 +46,7 @@ namespace AccesoDatos
         {
             try
             {
+                float montoTmp;
                 //const string qry = "SELECT * FROM conceptos WHERE monto <> \"NULL\"";
                 const string qry = "SELECT * FROM conceptos";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
@@ -54,12 +55,21 @@ namespace AccesoDatos
                     {
                         while (rd.Read())
                         {
+                            if (rd["monto"].ToString() != "")
+                            {
+                                montoTmp = float.Parse(rd["monto"].ToString());
+                            }
+                            else
+                            {
+                                montoTmp = float.Parse("0");
+                            }
                             tiposConceptos.Add(new TipoConcepto
                             {
-                                IdTipoConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
+
+                                IdTipoConcepto = Convert.ToInt32(rd["idconcepto"].ToString()),
                                 Concepto = rd["concepto"].ToString(),
-                                Monto = (float)Convert.ToDouble(rd["monto"].ToString())
-                             
+                                Monto = montoTmp
+
                             });
                         }
                     }
