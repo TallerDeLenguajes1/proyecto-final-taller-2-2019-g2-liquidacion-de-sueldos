@@ -32,6 +32,15 @@ namespace Entidades
             this.cargos = cargos;
             this.recibos = recibos;
         }
+        public Persona(int legajo, string nombres, string apellidos, string documento, string sexo, string baja)
+        {
+            this.legajo = legajo;
+            this.nombres = nombres;
+            this.apellidos = apellidos;
+            this.documento = documento;
+            this.sexo = sexo;
+            this.baja = baja;
+        }
 
         public int Legajo { get => legajo; set => legajo = value; }
         public string Nombres { get => nombres; set => nombres = value; }

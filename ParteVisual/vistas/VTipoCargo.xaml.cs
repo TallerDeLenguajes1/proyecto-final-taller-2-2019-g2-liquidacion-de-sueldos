@@ -40,7 +40,9 @@ namespace ParteVisual.vistas
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
         {
             FAMTipoCargo famTipoCargo = new FAMTipoCargo();
+            this.Hide();
             famTipoCargo.ShowDialog();
+            this.Show();
 
             bdTipoCargo.InsertTipoCargo(famTipoCargo.TipoCargo);
             tiposCargos.Add(famTipoCargo.TipoCargo);

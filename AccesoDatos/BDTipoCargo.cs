@@ -179,10 +179,10 @@ namespace AccesoDatos
             List<Cargo> personasCargos = new List<Cargo>();
             try
             {
-                const string qry = "select * from personascargos inner join personas using (legajo) inner join cargos using (idCargo) where categoria = @categoria;";
+                const string qry = "select * from personascargos inner join personas using (legajo) inner join cargos using (idCargo) where idCargo = @idTipoCargo;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idTipoCargo", tipocargo.Categoria);
+                    cmd.Parameters.AddWithValue("@idTipoCargo", tipocargo.IdTipoCargo);
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())

@@ -59,10 +59,8 @@ namespace AccesoDatos
                                 Nombres = rd["nombres"].ToString(),
                                 Apellidos = rd["apellidos"].ToString(),
                                 Documento = rd["documento"].ToString(),
-                               // FechaNacimiento = Convert.ToDateTime(rd["fechaIngreso"].ToString()),
                                 Sexo = rd["sexo"].ToString(),
                                 Baja = rd["baja"].ToString()
-
                             });
                         }
                     }
