@@ -23,7 +23,7 @@ namespace Entidades
         public float SueldoBasico { get => sueldoBasico; set => sueldoBasico = value; }
         public override string ToString()
         {
-            return idTipoCargo + "," + categoria + "," + sueldoBasico;
+            return categoria + "," + sueldoBasico;
         }
     }
 }

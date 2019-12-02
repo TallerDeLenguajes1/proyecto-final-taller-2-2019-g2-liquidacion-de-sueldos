@@ -45,6 +45,7 @@ namespace ParteVisual.vistas
             this.Show();
 
             bdTipoCargo.InsertTipoCargo(famTipoCargo.TipoCargo);
+            famTipoCargo.TipoCargo.IdTipoCargo = bdTipoCargo.MaxIdDB()-1;
             tiposCargos.Add(famTipoCargo.TipoCargo);
             lstTiposCargos.Items.Refresh();
 
@@ -60,6 +61,7 @@ namespace ParteVisual.vistas
                 TipoCargo SelectedTipoCargo = (TipoCargo)lstTiposCargos.SelectedItem;
                 famTipoCargo.Cargar(SelectedTipoCargo);
                 famTipoCargo.ShowDialog();
+                //MessageBox.Show(SelectedTipoCargo.IdTipoCargo.ToString());
 
                 bdTipoCargo.UpdateTipoCargo(famTipoCargo.TipoCargo);
                 lstTiposCargos.Items.Refresh();
@@ -74,7 +76,13 @@ namespace ParteVisual.vistas
         /// </summary>
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            //Para implementar con baja lógica
+            TipoCargo SelectedTipoCargo = (TipoCargo)lstTiposCargos.SelectedItem;
+            bdTipoCargo.DeleteTipoCargo(SelectedTipoCargo);
+            MessageBox.Show("Eliminado correcamente");
+            this.Close();
+            //lstTiposCargos.Items.Refresh();
+            //lstTiposCargos.Items.Remove((TipoCargo)lstTiposCargos.SelectedItem);
+            //ItemsControl.ItemsSource
         }
     }
 }

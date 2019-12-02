@@ -22,7 +22,7 @@ namespace AccesoDatos
         /// <summary>
         /// Trae el maximo id de cargos
         /// </summary>
-        private int MaxIdDB()
+        public int MaxIdDB()
         {
             int id = -1;
             try
@@ -54,7 +54,7 @@ namespace AccesoDatos
         {
             try
             {
-                const string qry = "SELECT * FROM cargos";
+                const string qry = "SELECT * FROM cargos WHERE baja != 1;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
@@ -155,7 +155,7 @@ namespace AccesoDatos
             try
             {
                 //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN CargosPersonas
-                string qry = "DELETE FROM cargos WHERE idcargo = @idTipoCargo";
+                string qry = "UPDATE cargos set baja = 1 WHERE idcargo = @idTipoCargo";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idTipoCargo", tipoCargo.IdTipoCargo);
