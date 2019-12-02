@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 
 namespace AccesoDatos
 {
@@ -12,6 +13,7 @@ namespace AccesoDatos
     {
         private List<TipoCargo> tiposCargos;
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDTipoCargo()
         {
             this.tiposCargos = new List<TipoCargo>();
@@ -40,7 +42,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECIONAR MAXIMO ID CARGO) -> {0}", ex.ToString());
+                //Console.WriteLine(ex.Message);
             }
             return id;
         }
@@ -71,7 +74,8 @@ namespace AccesoDatos
             }
             catch(MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECIONAR CARGOS EN BASE DE DATOS ) -> {0}", ex.ToString());
             }
             
             return tiposCargos;
@@ -104,7 +108,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR CARGO EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
@@ -136,7 +141,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL INSERTAR CARGO EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
@@ -167,7 +173,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ELIMINAR CARGO EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
@@ -205,7 +212,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR PERSONASCARGOS EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
 
             return personasCargos;

@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,15 @@ namespace AccesoDatos
     {
         private List<ReciboSueldo> reciboSueldo;        
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDReciboSueldo()
         {
             this.reciboSueldo = new List<ReciboSueldo>();            
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla ReciboSueldo de la base de datos
+        /// <summary>
+        /// Trae el maximo id de RecibosSueldos en la base de datos
+        /// </summary>
         public int MaxIdDB()
         {
             int id = -1;
@@ -37,10 +41,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR MAXIMO ID DE RECIBOSSUELDOS ) -> {0}", ex.ToString());
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista de RecibosSueldos
+        /// </summary>
         public List<ReciboSueldo> SelectReciboSueldos()
         {
             try
@@ -69,12 +77,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR RECIBOSSUELDOS ) -> {0}", ex.ToString());
             }
 
             return reciboSueldo;
         }
-
+        /// <summary>
+        /// Retorna una lista de conceptos respectos de un reciboSueldo
+        /// </summary>
         public List<Concepto> SelectConceptosRecibos(ReciboSueldo recibo)
         {
             List<Concepto> conceptos = new List<Concepto>();
@@ -104,12 +115,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
             }
 
             return conceptos;
         }
-
+        /// <summary>
+        /// Actualiza un ReciboSueldo en la base de datos
+        /// </summary>
         public bool UpdateReciboSueldo(ReciboSueldo reciboSueldo)
         {
             bool estadoQry = false;
@@ -138,10 +152,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR RECIBOSSUELDOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega un nuevo ReciboSueldo en la base de datos
+        /// </summary>
         public bool InsertReciboSueldo(ReciboSueldo reciboSueldo)
         {
             bool estadoQry = false;
@@ -171,10 +189,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL AGREGAR NUEVO RECIBOSSUELDOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Elimina un reciboSueldo en la base de datos
+        /// </summary>
         public bool DeleteReciboSueldo(ReciboSueldo reciboSueldo)
         {
             bool estadoQry = false;
@@ -199,7 +221,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL BORRAR RECIBOSSUELDOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }

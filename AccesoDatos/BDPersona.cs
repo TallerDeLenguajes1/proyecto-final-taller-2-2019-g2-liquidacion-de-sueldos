@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace AccesoDatos
     {
         private List<Persona> persona;        
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDPersona()
         {
             this.persona = new List<Persona>();
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla Personas de la base de datos
+        /// <summary>
+        /// Trae el maximo id de personas en la base de datos
+        /// </summary>
         private int MaxIdDB()
         {
             int id = -1;
@@ -38,10 +42,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR MAXIMO ID DE PERSONAS ) -> {0}", ex.ToString());
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista de personas
+        /// </summary>
         public List<Persona> SelectPersonas()
         {
             try
@@ -69,12 +77,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR PERSONAS ) -> {0}", ex.ToString());
             }
 
             return persona;
         }
-
+        /// <summary>
+        /// Retorna una lista de personasRecibos
+        /// </summary>
         public List<ReciboSueldo> SelectPersonaRecibo(Persona persona)
         {
             List<ReciboSueldo> recibos = new List<ReciboSueldo>();
@@ -105,11 +116,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR PERSONASRECIBOS ) -> {0}", ex.ToString());
             }
 
             return recibos;
         }
+        /// <summary>
+        /// Actualiza una persona en la base de datos
+        /// </summary>
         public bool UpdatePersona(Persona persona)
         {
             bool estadoQry = false;
@@ -139,10 +154,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR PERSONAS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega una perona en la base de datos
+        /// </summary>
         public bool InsertPersona(Persona persona)
         {
             bool estadoQry = false;
@@ -172,10 +191,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL AGREGAR UNA NUEVA PERSONA ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Borra una persona en la base de datos
+        /// </summary>
         public bool DeletePersona(Persona persona)
         {
             bool estadoQry = false;
@@ -200,7 +223,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ELIMINAR UNA PERSONA PERSONAS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }

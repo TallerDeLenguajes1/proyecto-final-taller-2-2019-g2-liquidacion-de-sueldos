@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace AccesoDatos
     {
         private List<Cargo> cargos;
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDCargo()
         {
             this.cargos = new List<Cargo>();
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla cargos de la base de datos
+        /// <summary>
+        /// Trae el maximo id de cargos
+        /// </summary>
         private int MaxIdDB()
         {
             int id = -1;
@@ -38,10 +42,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR MAXIMO ID DE PERSONASCARGOS ) -> {0}", ex.ToString());
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista de objetos cargos
+        /// </summary>
         public List<Cargo> SelectCargos()
         {
             try
@@ -71,12 +79,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR PERSONASCARGOS ) -> {0}", ex.ToString());
             }
 
             return cargos;
         }
-        
+        /// <summary>
+        /// Actualiza un cargo en la base de datos
+        /// </summary>
         public bool UpdateCargo(Cargo cargo)
         {
             bool estadoQry = false;
@@ -106,11 +117,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR PERSONASCARGOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
-        
+        /// <summary>
+        /// Inserta un cargo nuevo en la base de datos
+        /// </summary>
         public bool InsertCargo(Cargo cargo)
         {
             bool estadoQry = false;
@@ -141,10 +155,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL INSERTAR PERSONASCARGOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Borra un cargo en la base de datos
+        /// </summary>
         public bool DeleteCargo(Cargo cargo)
         {
             bool estadoQry = false;
@@ -169,7 +187,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ELIMINAR PERSONASCARGOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }

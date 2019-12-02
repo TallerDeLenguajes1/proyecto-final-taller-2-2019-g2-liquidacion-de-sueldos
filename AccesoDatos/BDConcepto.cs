@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace AccesoDatos
     {
         private List<Concepto> conceptos;
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDConcepto()
         {
             this.conceptos = new List<Concepto>();
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla cargos de la base de datos
+        /// <summary>
+        /// Trae el maximo id de Conceptos en la base de datos
+        /// </summary>
         public int MaxIdDB()
         {
             int id = -1;
@@ -38,11 +42,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR MAXIMO ID DE CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
             }
             return id;
         }
-        
+        /// <summary>
+        /// Retorna un lista de conceptos
+        /// </summary>
         public List<Concepto> SelectConceptos()
         {
             try
@@ -70,12 +77,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
             }
 
             return conceptos;
         }
-        
+        /// <summary>
+        /// Actualiza un concepto en la base de datos
+        /// </summary>
         public bool UpdateConcepto(Concepto concepto)
         {
             bool estadoQry = false;
@@ -104,10 +114,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega un nuevo concepto en la base de datos
+        /// </summary>
         public bool InsertConcepto(Concepto concepto)
         {
             bool estadoQry = false;
@@ -136,10 +150,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL AGREGAR NUEVO CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Elimina un concepto en la base de datos
+        /// </summary>
         public bool DeleteConcepto(Concepto concepto)
         {
             bool estadoQry = false;
@@ -164,7 +182,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ELIMINAR CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }

@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace AccesoDatos
     {
         private List<TipoConcepto> tiposConceptos;
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDTipoConcepto()
         {
             this.tiposConceptos = new List<TipoConcepto>();
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla cargos de la base de datos
+        /// <summary>
+        /// Trae el maximo id de conceptos en la base de datos
+        /// </summary>
         private int MaxIdDB()
         {
             int id = -1;
@@ -38,10 +42,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR MAXIMO ID DE CONCEPTOS ) -> {0}", ex.ToString());
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista de Tipo conceptos
+        /// </summary>
         public List<TipoConcepto> SelectTiposConceptos()
         {
             try
@@ -78,11 +86,15 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOS ) -> {0}", ex.ToString());
             }
 
             return tiposConceptos;
         }
+        /// <summary>
+        /// Actualiza un TipoConcepto en la base de datos
+        /// </summary>
         public bool UpdateTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
@@ -108,10 +120,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR CONCEPTOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega un nuevo tipoconcepto en la base de datos
+        /// </summary>
         public bool InsertTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
@@ -137,10 +153,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL INSERTAR CONCEPTO ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Borra un tipo concepto en la base de datos 
+        /// </summary>
         public bool DeleteTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
@@ -165,7 +185,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL BORRAR CONCEPTO ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
