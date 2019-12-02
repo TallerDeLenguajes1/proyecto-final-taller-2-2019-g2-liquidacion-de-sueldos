@@ -1,0 +1,18 @@
+﻿<Window x:Class="ParteVisual.vistas.VCargo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParteVisual.vistas"
+        mc:Ignorable="d"
+        Title="VCargo" Height="450" Width="800">
+    <Grid>
+        <ListBox x:Name="lstbxCargos" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="lstbxCargos_SelectionChanged" />
+        <Button Content="Agregar Cargo" HorizontalAlignment="Left" Margin="265,10,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button Content="Modificar Cargo" HorizontalAlignment="Left" Margin="265,35,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button Content="Eliminar Cargo" HorizontalAlignment="Left" Margin="265,60,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button Content="Contratar" HorizontalAlignment="Left" Margin="265,85,0,0" VerticalAlignment="Top" Width="112" Click="Button_Click"/>
+        <ListBox  x:Name="lstbxContrataciones" HorizontalAlignment="Left" Height="399" Margin="408,10,0,0" VerticalAlignment="Top" Width="224"/>
+        <Button x:Name="btnDespedir" Content="Despedir" HorizontalAlignment="Left" Margin="265,110,0,0" VerticalAlignment="Top" Width="112"/>
+    </Grid>
+</Window>

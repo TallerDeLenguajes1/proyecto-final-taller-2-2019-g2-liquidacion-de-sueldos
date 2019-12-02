@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Personas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Cargos" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button x:Name="btnReciboSueldo" Content="Recibos de Sueldo" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Width="128" Click="btnReciboSueldo_Click"/>
-        <Button Content="Conceptos" HorizontalAlignment="Left" Margin="345,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Personas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="56"/>
+        <Button Content="Cargos" HorizontalAlignment="Left" Margin="138,10,0,0" VerticalAlignment="Top" Width="130" Click="Button_Click" Height="54"/>
+        <Button x:Name="btnReciboSueldo" Content="Recibos de Sueldo" HorizontalAlignment="Left" Margin="414,12,0,0" VerticalAlignment="Top" Width="143" Click="btnReciboSueldo_Click" Height="56"/>
+        <Button Content="Conceptos" HorizontalAlignment="Left" Margin="562,12,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_1" Height="56"/>
+        <Button Content="Contrataciones" HorizontalAlignment="Left" Margin="273,12,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_2" Height="53"/>
     </Grid>
 </Window>

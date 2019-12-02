@@ -26,7 +26,7 @@ namespace ParteVisual
         public MainWindow()
         {
             InitializeComponent();
-            
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             
 
         }
@@ -50,8 +50,12 @@ namespace ParteVisual
             vTipoConcepto.ShowDialog();
         }
 
-
-
-
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            VCargo vCargo = new VCargo();
+            this.Hide();
+            vCargo.ShowDialog();
+            this.Show();
+        }
     }
 }
