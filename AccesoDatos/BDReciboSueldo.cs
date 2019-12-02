@@ -9,11 +9,11 @@ namespace AccesoDatos
 {
     public class BDReciboSueldo
     {
-        private List<ReciboSueldo> reciboSueldo;
+        private List<ReciboSueldo> reciboSueldo;        
         Conexion conexion;
         public BDReciboSueldo()
         {
-            this.reciboSueldo = new List<ReciboSueldo>();
+            this.reciboSueldo = new List<ReciboSueldo>();            
             this.conexion = new Conexion();
         }
         //Trae el maximo id de la tabla ReciboSueldo de la base de datos
@@ -74,6 +74,42 @@ namespace AccesoDatos
 
             return reciboSueldo;
         }
+
+        public List<Concepto> SelectConceptosRecibos(ReciboSueldo recibo)
+        {
+            List<Concepto> conceptos = new List<Concepto>();
+            try
+            {
+                const string qry = "SELECT * FROM recibossueldos INNER JOIN conceptosrecibos USING(idRS) WHERE idRS = @idRS";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {                    
+                    cmd.Parameters.AddWithValue("@idRS", recibo.Idrs);
+                    using (var rd = cmd.ExecuteReader())
+                    {                        
+                        while (rd.Read())
+                        {
+                            conceptos.Add(new Concepto
+                            {
+                                IdCR = Convert.ToInt32(rd["idCR"].ToString()),
+                                IdConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
+                                IdRS = Convert.ToInt32(rd["idRS"].ToString()),
+                                Legajo = Convert.ToInt32(rd["legajo"].ToString()),
+                                Monto = (float)Convert.ToDouble(rd["monto"].ToString()),
+                                Cantidad = (float)Convert.ToDouble(rd["cantidad"].ToString())
+                            });
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return conceptos;
+        }
+
         public bool UpdateReciboSueldo(ReciboSueldo reciboSueldo)
         {
             bool estadoQry = false;

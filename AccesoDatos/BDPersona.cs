@@ -10,7 +10,7 @@ namespace AccesoDatos
 {
     public class BDPersona
     {
-        private List<Persona> persona;
+        private List<Persona> persona;        
         Conexion conexion;
         public BDPersona()
         {
@@ -75,6 +75,42 @@ namespace AccesoDatos
             }
 
             return persona;
+        }
+
+        public List<ReciboSueldo> SelectPersonaRecibo(Persona persona)
+        {
+            List<ReciboSueldo> recibos = new List<ReciboSueldo>();
+            try
+            {
+                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) WHERE legajo = @legajo";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            recibos.Add(new ReciboSueldo
+                            {
+                                Idrs = Convert.ToInt32(rd["idrs"].ToString()),
+                                Legajo = Convert.ToInt32(rd["legajo"].ToString()),
+                                Mes = Convert.ToInt32(rd["mes"].ToString()),
+                                Anio = Convert.ToInt32(rd["anio"].ToString()),
+                                SueldoNeto = (float)Convert.ToDouble(rd["sueldoNeto"].ToString()),
+                                SueldoBruto = (float)Convert.ToDouble(rd["sueldoBruto"].ToString())
+
+                            });
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return recibos;
         }
         public bool UpdatePersona(Persona persona)
         {

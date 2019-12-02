@@ -28,11 +28,11 @@ namespace ParteVisual.vistas
         BDReciboSueldo bdrecibosueldo = new BDReciboSueldo();
 
         // Listas
-        private List<Concepto> recibossueldos = new List<Concepto>();
+        private List<Concepto> conceptos = new List<Concepto>();
         private List<TipoConcepto> conceptosagregados = new List<TipoConcepto>();
         private List<float> cantidades = new List<float>();
         List<TipoConcepto> tiposconceptos = new List<TipoConcepto>();        
-        List<Persona> personas = new List<Persona>();
+        
         
 
         // Nuevo ReciboSueldo   
@@ -41,24 +41,43 @@ namespace ParteVisual.vistas
         // Persona a quien pertenece el Recibo
         private Persona persona = new Persona();        
         
-        public ReciboSueldo Recibosueldo { get => recibosueldo; set => recibosueldo = value; }
-        public List<Concepto> Recibossueldos { get => recibossueldos; set => recibossueldos = value; }
+        public ReciboSueldo Recibosueldo { get => recibosueldo; set => recibosueldo = value; }        
         public Persona Persona { get => persona; set => persona = value; }
         public List<TipoConcepto> Conceptosagregados { get => conceptosagregados; set => conceptosagregados = value; }
         public List<float> Cantidades { get => cantidades; set => cantidades = value; }
+        public List<Concepto> Conceptos { get => conceptos; set => conceptos = value; }
 
-        public FAMReciboSueldo()
+        public FAMReciboSueldo(Persona persona)
         {
             InitializeComponent();
-            tiposconceptos = bdtipoconcepto.SelectTiposConceptos();
-            personas = bdpersona.SelectPersonas();
+            this.Persona = persona;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            tiposconceptos = bdtipoconcepto.SelectTiposConceptos();            
             lstTipoConcepto.ItemsSource = tiposconceptos;
-            lstPersona.ItemsSource = personas;
-            cldMesAnio.SelectedDate = DateTime.Now;
-            this.Persona = null;
+            cldMesAnio.SelectedDate = DateTime.Now;            
             recibosueldo.Idrs = bdrecibosueldo.MaxIdDB();            
         }
-        
+
+        public FAMReciboSueldo(ReciboSueldo recibo)
+        {
+            InitializeComponent();
+            DateTime fecha = Convert.ToDateTime("1/" + recibo.Mes + "/" + recibo.Anio);
+            cldMesAnio.SelectedDate = fecha;
+            Conceptos = bdrecibosueldo.SelectConceptosRecibos(recibo);
+            lstAgregados.ItemsSource = Conceptos;
+            lstAgregados.Items.Refresh();
+        }
+
+        /*public void Cargar(ReciboSueldo recibo)
+        {
+            DateTime fecha = Convert.ToDateTime("1/" + recibo.Mes + "/" + recibo.Anio);
+            cldMesAnio.SelectedDate = fecha;
+            Conceptos = bdrecibosueldo.SelectConceptosRecibos(recibo);
+            lstAgregados.ItemsSource = Conceptos;
+            lstAgregados.Items.Refresh();
+
+        }*/
+
         private void lstAgregados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             TipoConcepto quitarconcepto = (TipoConcepto) lstAgregados.SelectedItem;
@@ -67,13 +86,6 @@ namespace ParteVisual.vistas
             Cantidades.Remove(Cantidades[indice]);
             lstAgregados.Items.Remove(quitarconcepto);
             lstAgregados.Items.Refresh();
-            
-        }
-
-        private void lstPersona_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Persona = (Persona) lstPersona.SelectedItem;
-            MessageBox.Show("Persona Seleccionada");
             
         }
 
@@ -107,28 +119,21 @@ namespace ParteVisual.vistas
 
         private void btnCrearRecibo_Click(object sender, RoutedEventArgs e)
         {
-            if(this.Persona ==  null)
-            {
-                MessageBox.Show("No selecciono ninguna persona");
-            }
-            else
-            {
-                // LLenando campos de ReciboSueldo
-                recibosueldo.Legajo = Persona.Legajo;
-                recibosueldo.Mes = cldMesAnio.SelectedDate.Value.Month; 
-                recibosueldo.Anio = cldMesAnio.SelectedDate.Value.Year;
+            // LLenando campos de ReciboSueldo
+            recibosueldo.Legajo = this.Persona.Legajo;
+            recibosueldo.Mes = cldMesAnio.SelectedDate.Value.Month; 
+            recibosueldo.Anio = cldMesAnio.SelectedDate.Value.Year;
 
-                // Culculando SueldoBruto
-                float total = 0;
-                for (int i = 0; i < Conceptosagregados.Count; i++)
-                {
-                    total += Conceptosagregados[i].Monto;
-                }
-                recibosueldo.SueldoBruto = total;
-                recibosueldo.SueldoNeto = total;
-
-                this.Close();
+            // Culculando SueldoBruto
+            float total = 0;
+            for (int i = 0; i < Conceptosagregados.Count; i++)
+            {
+                total += Conceptosagregados[i].Monto;
             }
+            recibosueldo.SueldoBruto = total;
+            recibosueldo.SueldoNeto = total;
+
+            this.Close();            
         }
     }
 }

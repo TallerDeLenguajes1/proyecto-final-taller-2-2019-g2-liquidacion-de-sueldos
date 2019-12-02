@@ -26,17 +26,22 @@ namespace ParteVisual.vistas
         BDConcepto bdconcepto = new BDConcepto();
         BDReciboSueldo bdrecibosueldo = new BDReciboSueldo();
         List<ReciboSueldo> recibossueldos = new List<ReciboSueldo>();
+        List<Concepto> conceptos = new List<Concepto>();
+        List<Persona> personas = new List<Persona>();
         public VReciboSueldo()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             recibossueldos = bdrecibosueldo.SelectReciboSueldos();
-            lstReciboSueldo.ItemsSource = recibossueldos;
-            lstReciboSueldo.SelectedItem = 0;
+            personas = bdpersona.SelectPersonas();
+            lstPersona.ItemsSource = personas;
+            lstPersona.SelectedItem = 0;
         }
 
         private void bntAgregarRS_Click(object sender, RoutedEventArgs e)
         {
-            FAMReciboSueldo vistafmars = new FAMReciboSueldo();
+            Persona persona = (Persona)lstPersona.SelectedItem;
+            FAMReciboSueldo vistafmars = new FAMReciboSueldo(persona);
             vistafmars.ShowDialog();
             bdrecibosueldo.InsertReciboSueldo(vistafmars.Recibosueldo);            
             recibossueldos.Add(vistafmars.Recibosueldo);
@@ -48,7 +53,7 @@ namespace ParteVisual.vistas
             List<TipoConcepto> conceptosagregados = vistafmars.Conceptosagregados;
             List<float> cantidades = vistafmars.Cantidades;
             ReciboSueldo recibosueldo = vistafmars.Recibosueldo;
-            Persona persona = vistafmars.Persona;
+            
 
             Concepto nuevoconcepto = new Concepto();
             for (int i = 0; i < conceptosagregados.Count; i++)
@@ -65,6 +70,36 @@ namespace ParteVisual.vistas
                     MessageBox.Show("No se ejecuto la query");
                 }
             }
+        }
+
+        private void btnModificar_Click(object sender, RoutedEventArgs e)
+        {
+            Persona persona = (Persona)lstPersona.SelectedItem;
+            FAMReciboSueldo ventanamodificar = new FAMReciboSueldo(persona);
+        }
+
+        private void lstReciboSueldo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
+            conceptos = bdrecibosueldo.SelectConceptosRecibos(recibo);
+            lstConcepto.ItemsSource = conceptos;
+            lstConcepto.Items.Refresh();
+        }
+
+        private void lstPersona_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Persona persona = (Persona)lstPersona.SelectedItem;
+            recibossueldos = bdpersona.SelectPersonaRecibo(persona);
+            lstReciboSueldo.ItemsSource = recibossueldos;
+            lstReciboSueldo.Items.Refresh();
+        }
+
+        private void btnModificar_Click_1(object sender, RoutedEventArgs e)
+        {
+            ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
+            FAMReciboSueldo vistafamrecibo = new FAMReciboSueldo(recibo);
+            //vistafamrecibo.Cargar(recibo);
+            vistafamrecibo.ShowDialog();            
         }
     }
 }

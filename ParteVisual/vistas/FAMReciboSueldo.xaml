@@ -7,17 +7,15 @@
         mc:Ignorable="d"
         Title="FAMReciboSueldo" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="lstTipoConcepto" HorizontalAlignment="Left" Height="125" Margin="323,41,0,0" VerticalAlignment="Top" Width="207"/>
+        <ListBox x:Name="lstTipoConcepto" HorizontalAlignment="Left" Height="223" Margin="323,41,0,0" VerticalAlignment="Top" Width="207"/>
         <Label x:Name="lblTipoCargo" Content="Agregar Concepto" HorizontalAlignment="Left" Margin="371,15,0,0" VerticalAlignment="Top"/>
         <Calendar x:Name="cldMesAnio" HorizontalAlignment="Left" Margin="75,67,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblFecha" Content="Ingrese la Fecha" HorizontalAlignment="Left" Margin="117,41,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="lstPersona" HorizontalAlignment="Left" Height="332" Margin="590,41,0,0" VerticalAlignment="Top" Width="185" MouseDoubleClick="lstPersona_MouseDoubleClick" />
-        <Label x:Name="lblPersona" Content="Personas" HorizontalAlignment="Left" Margin="656,15,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblAgregados" Content="Conceptos Agregados" HorizontalAlignment="Left" Height="28" Margin="361,225,0,0" VerticalAlignment="Top" Width="133"/>
-        <ListBox x:Name="lstAgregados" HorizontalAlignment="Left" Height="137" Margin="323,253,0,0" VerticalAlignment="Top" Width="207" MouseDoubleClick="lstAgregados_MouseDoubleClick" />
-        <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="381,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69"/>
-        <Label Content="Cantidad" HorizontalAlignment="Left" Margin="323,168,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnagregarConcepto" Content="Agregar" HorizontalAlignment="Left" Margin="455,171,0,0" VerticalAlignment="Top" Width="75" Click="btnagregarConcepto_Click"/>
+        <Label x:Name="lblAgregados" Content="Conceptos Agregados" HorizontalAlignment="Left" Height="28" Margin="606,15,0,0" VerticalAlignment="Top" Width="133"/>
+        <ListBox x:Name="lstAgregados" HorizontalAlignment="Left" Height="221" Margin="561,43,0,0" VerticalAlignment="Top" Width="207" MouseDoubleClick="lstAgregados_MouseDoubleClick" />
+        <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="371,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69"/>
+        <Label Content="Cantidad" HorizontalAlignment="Left" Margin="308,282,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnagregarConcepto" Content="Agregar" HorizontalAlignment="Left" Margin="455,282,0,0" VerticalAlignment="Top" Width="75" Click="btnagregarConcepto_Click"/>
         <Button x:Name="btnCrearRecibo" Content="Crear Recibo" HorizontalAlignment="Left" Height="30" Margin="63,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCrearRecibo_Click"/>
         <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="30" Margin="165,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelar_Click"/>
 
