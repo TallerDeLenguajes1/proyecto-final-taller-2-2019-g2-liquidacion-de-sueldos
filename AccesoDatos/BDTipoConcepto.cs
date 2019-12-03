@@ -56,7 +56,7 @@ namespace AccesoDatos
             {
                 float montoTmp;
                 //const string qry = "SELECT * FROM conceptos WHERE monto <> \"NULL\"";
-                const string qry = "SELECT * FROM conceptos";
+                const string qry = "SELECT * FROM conceptos WHERE baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())

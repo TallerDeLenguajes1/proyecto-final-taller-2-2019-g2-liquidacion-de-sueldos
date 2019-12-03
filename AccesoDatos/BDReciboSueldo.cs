@@ -53,7 +53,7 @@ namespace AccesoDatos
         {
             try
             {
-                const string qry = "SELECT * FROM recibossueldos";
+                const string qry = "SELECT * FROM recibossueldos WHERE baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
@@ -91,7 +91,7 @@ namespace AccesoDatos
             List<Concepto> conceptos = new List<Concepto>();
             try
             {
-                const string qry = "SELECT * FROM recibossueldos INNER JOIN conceptosrecibos USING(idRS) WHERE idRS = @idRS";
+                const string qry = "SELECT * FROM recibossueldos INNER JOIN conceptosrecibos USING(idRS) WHERE idRS = @idRS AND baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {                    
                     cmd.Parameters.AddWithValue("@idRS", recibo.Idrs);

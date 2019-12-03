@@ -54,7 +54,7 @@ namespace AccesoDatos
         {
             try
             {
-                const string qry = "SELECT * FROM personascargos";
+                const string qry = "SELECT * FROM personascargos WHERE baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())

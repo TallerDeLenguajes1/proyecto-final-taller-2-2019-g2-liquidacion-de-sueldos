@@ -56,7 +56,7 @@ namespace AccesoDatos
         {
             try
             {
-                const string qry = "SELECT * FROM personas";
+                const string qry = "SELECT * FROM personas WHERE baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
@@ -94,7 +94,7 @@ namespace AccesoDatos
         {
             try
             {
-                const string qry = "SELECT * FROM personas where legajo = @legajo";
+                const string qry = "SELECT * FROM personas where legajo = @legajo AND baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
@@ -133,7 +133,7 @@ namespace AccesoDatos
             List<ReciboSueldo> recibos = new List<ReciboSueldo>();
             try
             {
-                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) WHERE legajo = @legajo";
+                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) WHERE legajo = @legajo AND baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
