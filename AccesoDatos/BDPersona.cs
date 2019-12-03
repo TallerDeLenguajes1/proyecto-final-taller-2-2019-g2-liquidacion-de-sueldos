@@ -133,7 +133,7 @@ namespace AccesoDatos
             List<ReciboSueldo> recibos = new List<ReciboSueldo>();
             try
             {
-                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) WHERE legajo = @legajo AND baja != 1";
+                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) WHERE legajo = @legajo AND personas.baja != 1 AND recibossueldos.baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
