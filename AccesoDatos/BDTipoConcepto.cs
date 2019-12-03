@@ -22,7 +22,7 @@ namespace AccesoDatos
         /// <summary>
         /// Trae el maximo id de conceptos en la base de datos
         /// </summary>
-        private int MaxIdDB()
+        public int MaxIdDB()
         {
             int id = -1;
             try
@@ -166,7 +166,7 @@ namespace AccesoDatos
             bool estadoQry = false;
             try
             {
-                //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN conceptos
+                //LA BASE DE DATOS NO TE DEJA ELIMINAR Concepto, ES FOREING KEY EN ConceptosRecibos
                 string qry = "DELETE FROM conceptos WHERE idconcepto = @idTipoConcepto";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {

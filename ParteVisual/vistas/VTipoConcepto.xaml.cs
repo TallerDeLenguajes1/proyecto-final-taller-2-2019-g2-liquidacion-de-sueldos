@@ -37,9 +37,12 @@ namespace ParteVisual.vistas
         private void btnAgregar_Click_1(object sender, RoutedEventArgs e)
         {
             FAMTipoConcepto famTipoConcepto = new FAMTipoConcepto();
+            this.Hide();
             famTipoConcepto.ShowDialog();
+            this.Show();
 
             bdTipoConcepto.InsertTipoConcepto(famTipoConcepto.TipoConcepto);
+            famTipoConcepto.TipoConcepto.IdTipoConcepto = bdTipoConcepto.MaxIdDB() - 1;
             tiposConceptos.Add(famTipoConcepto.TipoConcepto);
             lstTiposConceptos.Items.Refresh();
 
@@ -64,6 +67,10 @@ namespace ParteVisual.vistas
         /// Baja lógica de un tipo concepto que existe
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
+            TipoConcepto SelectedTipoConcepto = (TipoConcepto)lstTiposConceptos.SelectedItem;
+            bdTipoConcepto.DeleteTipoConcepto(SelectedTipoConcepto);
+            MessageBox.Show("Eliminado correcamente");
+            this.Close();
 
         }
     }

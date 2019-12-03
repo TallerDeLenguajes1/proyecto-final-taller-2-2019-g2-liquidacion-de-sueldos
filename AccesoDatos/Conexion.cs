@@ -13,7 +13,7 @@ namespace AccesoDatos
     /// </summary>
     public class Conexion
     {
-        const string cadenaConexion = "server=127.0.0.1;uid=root;pwd=1234;database=salarios";
+        const string cadenaConexion = "server=127.0.0.1;uid=root;database=salarios";
         MySqlConnection con;
         Logger logger = LogManager.GetCurrentClassLogger();
 
