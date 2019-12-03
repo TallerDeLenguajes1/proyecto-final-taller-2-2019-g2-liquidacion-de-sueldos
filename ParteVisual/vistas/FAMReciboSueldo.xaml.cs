@@ -29,8 +29,8 @@ namespace ParteVisual.vistas
 
         // Listas
         private List<Concepto> conceptos = new List<Concepto>();
-        private List<TipoConcepto> conceptosagregados = new List<TipoConcepto>();
-        private List<float> cantidades = new List<float>();
+        private List<Concepto> conceptosagregados = new List<Concepto>();
+        private List<Concepto> conceptosquitados = new List<Concepto>();
         List<TipoConcepto> tiposconceptos = new List<TipoConcepto>();        
         
         
@@ -43,9 +43,9 @@ namespace ParteVisual.vistas
         
         public ReciboSueldo Recibosueldo { get => recibosueldo; set => recibosueldo = value; }        
         public Persona Persona { get => persona; set => persona = value; }
-        public List<TipoConcepto> Conceptosagregados { get => conceptosagregados; set => conceptosagregados = value; }
-        public List<float> Cantidades { get => cantidades; set => cantidades = value; }
+        public List<Concepto> Conceptosagregados { get => conceptosagregados; set => conceptosagregados = value; }
         public List<Concepto> Conceptos { get => conceptos; set => conceptos = value; }
+        public List<Concepto> Conceptosquitados { get => conceptosquitados; set => conceptosquitados = value; }
 
         public FAMReciboSueldo(Persona persona)
         {
@@ -64,8 +64,10 @@ namespace ParteVisual.vistas
             DateTime fecha = Convert.ToDateTime("1/" + recibo.Mes + "/" + recibo.Anio);
             cldMesAnio.SelectedDate = fecha;
             Conceptos = bdrecibosueldo.SelectConceptosRecibos(recibo);
+            Conceptosagregados = Conceptos;
             lstAgregados.ItemsSource = Conceptos;
             lstAgregados.Items.Refresh();
+            persona = bdpersona.SelectPersona(recibo.Legajo);
         }
 
         /*public void Cargar(ReciboSueldo recibo)
@@ -80,18 +82,16 @@ namespace ParteVisual.vistas
 
         private void lstAgregados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            TipoConcepto quitarconcepto = (TipoConcepto) lstAgregados.SelectedItem;
-            int indice = lstAgregados.Items.IndexOf(quitarconcepto);
+            Concepto quitarconcepto = (Concepto) lstAgregados.SelectedItem;
+            conceptosquitados.Add(quitarconcepto);
             Conceptosagregados.Remove(quitarconcepto);
-            Cantidades.Remove(Cantidades[indice]);
-            lstAgregados.Items.Remove(quitarconcepto);
+            lstAgregados.ItemsSource = Conceptosagregados;
             lstAgregados.Items.Refresh();
-            
         }
 
         private void btnagregarConcepto_Click(object sender, RoutedEventArgs e)
         {
-            TipoConcepto nuevoconcepto = (TipoConcepto)lstTipoConcepto.SelectedItem;
+            TipoConcepto nuevotipo = (TipoConcepto)lstTipoConcepto.SelectedItem;
             float cantidad = new float();
             float outParse;
             if (txtCantidad.Text == null || txtCantidad.Text == "")
@@ -105,8 +105,15 @@ namespace ParteVisual.vistas
             else
             {
                 cantidad = outParse;
-                Conceptosagregados.Add(nuevoconcepto);
-                Cantidades.Add(cantidad);
+                Concepto nuevoconcepto = new Concepto();
+                nuevoconcepto.IdCR = bdconcepto.MaxIdDB();
+                nuevoconcepto.IdConcepto = nuevotipo.IdTipoConcepto;
+                nuevoconcepto.IdRS = recibosueldo.Idrs;
+                nuevoconcepto.Legajo = persona.Legajo;
+                nuevoconcepto.Monto = nuevotipo.Monto;
+                nuevoconcepto.Cantidad = cantidad;
+
+                Conceptosagregados.Add(nuevoconcepto);                
                 lstAgregados.Items.Add(nuevoconcepto);
                 lstAgregados.Items.Refresh();
             }
@@ -124,7 +131,7 @@ namespace ParteVisual.vistas
             recibosueldo.Mes = cldMesAnio.SelectedDate.Value.Month; 
             recibosueldo.Anio = cldMesAnio.SelectedDate.Value.Year;
 
-            // Culculando SueldoBruto
+            // Calculando SueldoBruto
             float total = 0;
             for (int i = 0; i < Conceptosagregados.Count; i++)
             {

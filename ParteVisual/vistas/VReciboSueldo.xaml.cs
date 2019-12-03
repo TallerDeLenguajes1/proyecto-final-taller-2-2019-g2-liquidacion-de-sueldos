@@ -50,21 +50,13 @@ namespace ParteVisual.vistas
             // Insert de conceptosrecibos nuevos
             int nuevoindice = bdconcepto.MaxIdDB();
             // Objetos necesarios
-            List<TipoConcepto> conceptosagregados = vistafmars.Conceptosagregados;
-            List<float> cantidades = vistafmars.Cantidades;
+            List<Concepto> conceptosagregados = vistafmars.Conceptosagregados;
             ReciboSueldo recibosueldo = vistafmars.Recibosueldo;
             
 
-            Concepto nuevoconcepto = new Concepto();
             for (int i = 0; i < conceptosagregados.Count; i++)
             {
-                nuevoconcepto.IdCR = nuevoindice + i;
-                nuevoconcepto.IdConcepto = conceptosagregados[i].IdTipoConcepto;
-                nuevoconcepto.IdRS = recibosueldo.Idrs;
-                nuevoconcepto.Legajo = persona.Legajo;
-                nuevoconcepto.Monto = conceptosagregados[i].Monto;
-                nuevoconcepto.Cantidad = cantidades[i];
-                bool sehizo = bdconcepto.InsertConcepto(nuevoconcepto);
+                bool sehizo = bdconcepto.InsertConcepto(conceptosagregados[i]);
                 if (!sehizo)
                 {
                     MessageBox.Show("No se ejecuto la query");
@@ -74,8 +66,20 @@ namespace ParteVisual.vistas
 
         private void btnModificar_Click(object sender, RoutedEventArgs e)
         {
-            Persona persona = (Persona)lstPersona.SelectedItem;
-            FAMReciboSueldo ventanamodificar = new FAMReciboSueldo(persona);
+            ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
+            FAMReciboSueldo vistafamrecibo = new FAMReciboSueldo(recibo);
+            //vistafamrecibo.Cargar(recibo);
+            List<Concepto> quitar = vistafamrecibo.Conceptosquitados;
+            vistafamrecibo.ShowDialog();
+
+            for(int i = 0; i < quitar.Count; i++)
+            {
+                bool res = bdconcepto.DeleteConcepto(quitar[i]);
+                if (res)
+                {
+                    MessageBox.Show("ELIMINADO CON EXITO");
+                }
+            }
         }
 
         private void lstReciboSueldo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -93,13 +97,6 @@ namespace ParteVisual.vistas
             lstReciboSueldo.ItemsSource = recibossueldos;
             lstReciboSueldo.Items.Refresh();
         }
-
-        private void btnModificar_Click_1(object sender, RoutedEventArgs e)
-        {
-            ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
-            FAMReciboSueldo vistafamrecibo = new FAMReciboSueldo(recibo);
-            //vistafamrecibo.Cargar(recibo);
-            vistafamrecibo.ShowDialog();            
-        }
+        
     }
 }

@@ -16,7 +16,7 @@
         <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="371,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69"/>
         <Label Content="Cantidad" HorizontalAlignment="Left" Margin="308,282,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnagregarConcepto" Content="Agregar" HorizontalAlignment="Left" Margin="455,282,0,0" VerticalAlignment="Top" Width="75" Click="btnagregarConcepto_Click"/>
-        <Button x:Name="btnCrearRecibo" Content="Crear Recibo" HorizontalAlignment="Left" Height="30" Margin="63,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCrearRecibo_Click"/>
+        <Button x:Name="btnCrearRecibo" Content="Aceptar" HorizontalAlignment="Left" Height="30" Margin="63,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCrearRecibo_Click"/>
         <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="30" Margin="165,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelar_Click"/>
 
     </Grid>

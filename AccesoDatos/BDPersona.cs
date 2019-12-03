@@ -11,14 +11,16 @@ namespace AccesoDatos
 {
     public class BDPersona
     {
-        private List<Persona> persona;        
+        private List<Persona> personas;
+        private Persona persona;
         Conexion conexion;
         Logger logger = LogManager.GetCurrentClassLogger();
         public BDPersona()
         {
-            this.persona = new List<Persona>();
+            this.personas = new List<Persona>();
             this.conexion = new Conexion();
-        }
+            this.persona = new Persona();
+    }
         /// <summary>
         /// Trae el maximo id de personas en la base de datos
         /// </summary>
@@ -61,7 +63,7 @@ namespace AccesoDatos
                     {
                         while (rd.Read())
                         {
-                            persona.Add(new Persona
+                            personas.Add(new Persona
                             {
                                 Legajo = Convert.ToInt32(rd["legajo"].ToString()),
                                 Nombres = rd["nombres"].ToString(),
@@ -81,11 +83,51 @@ namespace AccesoDatos
                 logger.Error("ERROR!! ( AL SELECCIONAR PERSONAS ) -> {0}", ex.ToString());
             }
 
+            return personas;
+        }
+        /// <summary>
+        /// Retorna una Persona segun su legajo
+        /// </summary>
+        /// 
+
+        public Persona SelectPersona(int legajo)
+        {
+            try
+            {
+                const string qry = "SELECT * FROM personas where legajo = @legajo";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            new Persona
+                            {
+                                Legajo = Convert.ToInt32(rd["legajo"].ToString()),
+                                Nombres = rd["nombres"].ToString(),
+                                Apellidos = rd["apellidos"].ToString(),
+                                Documento = rd["documento"].ToString(),
+                                Sexo = rd["sexo"].ToString(),
+                                Baja = rd["baja"].ToString()
+                            };
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR PERSONAS ) -> {0}", ex.ToString());
+            }
+
             return persona;
         }
         /// <summary>
         /// Retorna una lista de personasRecibos
         /// </summary>
+
         public List<ReciboSueldo> SelectPersonaRecibo(Persona persona)
         {
             List<ReciboSueldo> recibos = new List<ReciboSueldo>();
