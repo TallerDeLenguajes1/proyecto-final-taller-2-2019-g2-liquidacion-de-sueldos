@@ -21,15 +21,19 @@ namespace ParteVisual.vistas
     /// </summary>
     public partial class VPersona : Window
     {
+        BDCargo bdCargo;
         BDPersona bdPersona;
         List<Persona> lstPersonas;
+        Cargo cargo;
         public VPersona()
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             bdPersona = new BDPersona();
+            bdCargo = new BDCargo();
             lstPersonas = new List<Persona>();
+            cargo = new Cargo();
             lstPersonas = bdPersona.SelectPersonas();
             this.lstbxPersona.ItemsSource = lstPersonas;
 
@@ -92,6 +96,36 @@ namespace ParteVisual.vistas
             lstbxPersona.Items.Refresh();
 
             MessageBox.Show("Eliminado correcamente");
+        }
+
+        private void bntContratar_Click(object sender, RoutedEventArgs e)
+        {
+            if(lstbxPersona.SelectedItem != null)
+            {
+                FAMContratar famContratar = new FAMContratar();
+
+                famContratar.Cargar((Persona)lstbxPersona.SelectedItem);
+                famContratar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una persona válida");
+            }
+
+        }
+
+        private void bntDespedir_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstbxPersona.SelectedItem != null)
+            {
+
+                bdCargo.DeleteCargo(cargo);
+                MessageBox.Show("Exito en la operación");
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una persona válida");
+            }
         }
     }
 }

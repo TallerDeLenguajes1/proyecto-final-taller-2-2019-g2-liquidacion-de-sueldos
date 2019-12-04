@@ -57,11 +57,11 @@ namespace ParteVisual.vistas
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FAMContratar famContratar = new FAMContratar();
+            /*FAMContratar famContratar = new FAMContratar();
             this.Hide();
             famContratar.Cargar(tipoCargoSeleccionado);
             famContratar.ShowDialog();
-            this.Show();
+            this.Show();*/
         }
     }
 }

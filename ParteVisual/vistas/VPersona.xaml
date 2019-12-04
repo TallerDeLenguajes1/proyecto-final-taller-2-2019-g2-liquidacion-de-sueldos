@@ -8,14 +8,12 @@
         Title="VPersona" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Personas" VerticalAlignment="Top"/>
-        <ListBox Margin="0,31,10,10" HorizontalAlignment="Right" Width="241"/>
-        <TextBlock HorizontalAlignment="Right" Margin="0,10,214,0" TextWrapping="Wrap" Text="Cargos" VerticalAlignment="Top"/>
         <StackPanel Margin="276,31,268,10">
             <Button x:Name="bntAgregarPersona" Content="Agregar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntAgregarPersona_Click"/>
             <Button x:Name="bntModificarPersona" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntModificarPersona_Click"/>
             <Button x:Name="bntEliminarPersona" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntEliminarPersona_Click"/>
-            <Button x:Name="bntContratar" Content="Contratar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10"/>
-            <Button x:Name="bntDespedir" Content="Despedir" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40"/>
+            <Button x:Name="bntContratar" Content="Contratar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntContratar_Click"/>
+            <Button x:Name="bntDespedir" Content="Despedir" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Click="bntDespedir_Click"/>
         </StackPanel>
         <ListBox x:Name="lstbxPersona" HorizontalAlignment="Left" Height="378" Margin="10,31,0,0" VerticalAlignment="Top" Width="261"/>
 

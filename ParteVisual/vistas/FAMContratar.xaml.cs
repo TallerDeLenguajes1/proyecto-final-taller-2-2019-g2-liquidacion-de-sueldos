@@ -21,31 +21,56 @@ namespace ParteVisual.vistas
     /// </summary>
     public partial class FAMContratar : Window
     {
-        BDPersona bdPersona;
-        List<Persona> SelectPersonas;
-        TipoCargo tipoCargo;
-        BDCargo bdCargo;
+        List<TipoCargo> SelecCargo;
+        Persona persona;
+        BDTipoCargo bdTipoCargo;
+        Cargo cargo;
 
         public FAMContratar()
         {
             InitializeComponent();
-            bdPersona = new BDPersona();
-            bdCargo = new BDCargo();
-            SelectPersonas = new List<Persona>();
-            SelectPersonas = bdPersona.SelectPersonas();
-            //MessageBox.Show(SelectPersonas[0].ToString());
-            cbxPersonas.ItemsSource = SelectPersonas;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+
+            bdTipoCargo = new BDTipoCargo();
+            cargo = new Cargo();
+            SelecCargo = new List<TipoCargo>();
+            SelecCargo = bdTipoCargo.SelectTiposCargos();
+            cbxPersonas.ItemsSource = SelecCargo;
 
         }
-        public void Cargar(TipoCargo tipocargo)
+        public void Cargar(Persona persona)
         {
-            this.tipoCargo = tipocargo;
-            //MessageBox.Show(tipoCargo.Categoria);
-            tbxPuesto.Text = tipoCargo.Categoria;
+            this.persona = persona;
+
+            tbxNombre.Text = persona.Nombres;
+            tbxApellido.Text = persona.Apellidos;
+            tbxDocumento.Text = persona.Documento;
+            if (persona.Sexo == "M")
+            {
+                rbtnHombre.IsChecked = true;
+            }
+            else
+            {
+                rbtnHombre.IsChecked = false;
+                rbtnMujer.IsChecked = true;
+            }
+            tbxApellido.IsEnabled = false;
+            tbxNombre.IsEnabled = false;
+            tbxDocumento.IsEnabled = false;
+            rbtnHombre.IsEnabled = false;
+            rbtnMujer.IsEnabled = false;
+            fechaNacimiento.IsEnabled = false;
         }
 
         private void btnContratar_Click(object sender, RoutedEventArgs e)
         {
+            cargo.Legajo = persona.Legajo;
+            cargo.FechaIngreso = DateTime.Now;
+            cargo.Funcion = ((TipoCargo)cbxPersonas.SelectedItem).Categoria;
+            BDCargo bdCargo = new BDCargo();
+
+            bdCargo.InsertCargo(cargo);
             this.Close();
         }
     }

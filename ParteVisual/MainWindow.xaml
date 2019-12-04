@@ -10,7 +10,6 @@
         <StackPanel HorizontalAlignment="Left" Margin="34,65,0,10" Width="257">
             <Button Content="Personas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click_3" Margin="0,0,0,10"/>
             <Button Content="Cargos" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click" Height="50" Margin="0,0,0,10"/>
-            <Button Content="Contrataciones" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click_2" Height="50" Margin="0,0,0,10"/>
             <Button x:Name="btnReciboSueldo" Content="Recibos de Sueldo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="btnReciboSueldo_Click" Height="50" Margin="0,0,0,10"/>
             <Button Content="Conceptos" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click_1" Height="50"/>
         </StackPanel>
