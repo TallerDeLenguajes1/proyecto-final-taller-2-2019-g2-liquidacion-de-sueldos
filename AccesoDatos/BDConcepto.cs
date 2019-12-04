@@ -73,7 +73,7 @@ namespace AccesoDatos
                                 {
                                     IdTipoConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
                                     Concepto = rd["concepto"].ToString(),
-                                    Monto = (float)Convert.ToDouble(rd["conceptos.monto"].ToString())
+                                    Monto = (float)Convert.ToDouble(rd[14].ToString())
                                 }
                             }); ;
                         }

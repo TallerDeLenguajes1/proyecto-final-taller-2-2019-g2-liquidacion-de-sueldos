@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 namespace AccesoDatos
 {
     public class BDReciboSueldo
@@ -127,6 +128,7 @@ namespace AccesoDatos
 
             return conceptos;
         }
+
         /// <summary>
         /// Actualiza un ReciboSueldo en la base de datos
         /// </summary>
@@ -232,5 +234,87 @@ namespace AccesoDatos
             }
             return estadoQry;
         }
+
+        /// <summary>
+        /// Retorna una lista de conceptos respectos de un reciboSueldo
+        /// </summary>
+        public List<String> ToCSV(ReciboSueldo recibo)
+        {
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            List<String> lineas = new List<string>();
+            List<Concepto> conceptos = new List<Concepto>();
+            String linea = "Index,nombres,mes,anio,concepto,cantidad,monto";
+            lineas.Add(linea);
+            int contador = 1;
+            try
+            {
+                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) INNER JOIN conceptosrecibos USING(idRS) INNER JOIN conceptos USING(idConcepto) WHERE recibossueldos.baja != 1 AND conceptosrecibos.baja != 1 AND personas.baja != 1 AND conceptos.baja != 1 AND idRS = @idRS";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@idRS", recibo.Idrs);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            float monto = (float)(Convert.ToDouble(rd[16].ToString()));
+                            float cantidad = (float)(Convert.ToDouble(rd["cantidad"].ToString()));
+                            linea = contador + "," + rd["nombres"].ToString() + "," + rd["mes"].ToString() + "," + rd["anio"].ToString() + "," + rd["concepto"].ToString() + "," + cantidad.ToString("F",nfi) + "," + monto.ToString("F", nfi);
+                            lineas.Add(linea);
+                            contador++;
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
+            }
+
+            return lineas;
+        }
+
+        /// <summary>
+        /// Retorna una lista de conceptos respectos de un reciboSueldo
+        /// </summary>
+        public List<object[]> ToExcel(ReciboSueldo recibo)
+        {
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            List<object[]> lineas = new List<object[]>();                                    
+            int contador = 1;
+            try
+            {
+                const string qry = "SELECT * FROM personas INNER JOIN recibossueldos USING(legajo) INNER JOIN conceptosrecibos USING(idRS) INNER JOIN conceptos USING(idConcepto) WHERE recibossueldos.baja != 1 AND conceptosrecibos.baja != 1 AND personas.baja != 1 AND conceptos.baja != 1 AND idRS = @idRS";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@idRS", recibo.Idrs);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            String nombre = rd["nombres"].ToString();
+                            int mes = Convert.ToInt32(rd["mes"].ToString());
+                            int anio = Convert.ToInt32(rd["anio"].ToString());
+                            String concepto = rd["concepto"].ToString();
+                            float monto = (float)(Convert.ToDouble(rd[16].ToString()));
+                            float cantidad = (float)(Convert.ToDouble(rd["cantidad"].ToString()));
+                            lineas.Add(new object[] { contador, nombre, mes, anio, concepto, monto, cantidad });
+                            contador++;
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOSRECIBOS ) -> {0}", ex.ToString());
+            }
+
+            return lineas;
+        }
+
+
     }
 }

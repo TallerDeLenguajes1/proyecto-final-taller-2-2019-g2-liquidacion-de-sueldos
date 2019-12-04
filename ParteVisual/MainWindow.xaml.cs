@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace ParteVisual
 {
@@ -27,7 +28,9 @@ namespace ParteVisual
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            
+            System.IO.Directory.CreateDirectory("reportes");
+            Application.Current.Properties["nfi"] = new CultureInfo("en-US", false).NumberFormat;
+
 
         }
 
