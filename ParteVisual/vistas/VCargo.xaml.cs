@@ -27,6 +27,8 @@ namespace ParteVisual.vistas
         public VCargo()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             dbTipoCargo = new BDTipoCargo();
             List<TipoCargo> SelectTipoCargos = new List<TipoCargo>();
             SelectTipoCargos = dbTipoCargo.SelectTiposCargos();

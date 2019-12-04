@@ -24,6 +24,7 @@ namespace ParteVisual.vistas
         public FAMTipoConcepto()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             tipoConcepto = new TipoConcepto();
         }
         public TipoConcepto TipoConcepto { get => tipoConcepto; }

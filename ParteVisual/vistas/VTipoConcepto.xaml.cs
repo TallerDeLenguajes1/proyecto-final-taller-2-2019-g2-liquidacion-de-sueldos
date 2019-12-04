@@ -25,6 +25,8 @@ namespace ParteVisual.vistas
         public VTipoConcepto()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             tiposConceptos = new List<TipoConcepto>();
             bdTipoConcepto = new BDTipoConcepto();
             tiposConceptos = bdTipoConcepto.SelectTiposConceptos();

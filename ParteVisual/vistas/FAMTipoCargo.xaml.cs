@@ -24,6 +24,7 @@ namespace ParteVisual.vistas
         public FAMTipoCargo()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             tipoCargo = new TipoCargo();
         }
 
