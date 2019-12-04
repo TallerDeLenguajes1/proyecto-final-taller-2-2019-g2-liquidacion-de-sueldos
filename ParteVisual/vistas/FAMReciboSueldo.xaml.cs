@@ -39,13 +39,17 @@ namespace ParteVisual.vistas
         private ReciboSueldo recibosueldo = new ReciboSueldo();
 
         // Persona a quien pertenece el Recibo
-        private Persona persona = new Persona();        
+        private Persona persona = new Persona();
+
+        // Booleano para saber si se Acepto la Carga/Modificacion
+        private bool aceptado = false;
         
         public ReciboSueldo Recibosueldo { get => recibosueldo; set => recibosueldo = value; }        
         public Persona Persona { get => persona; set => persona = value; }
         public List<Concepto> Conceptosagregados { get => conceptosagregados; set => conceptosagregados = value; }
         public List<Concepto> Conceptos { get => conceptos; set => conceptos = value; }
         public List<Concepto> Conceptosquitados { get => conceptosquitados; set => conceptosquitados = value; }
+        public bool Aceptado { get => aceptado; set => aceptado = value; }
 
         public FAMReciboSueldo(Persona persona)
         {
@@ -65,6 +69,8 @@ namespace ParteVisual.vistas
             cldMesAnio.SelectedDate = fecha;
             Conceptos = bdrecibosueldo.SelectConceptosRecibos(recibo);
             Conceptosagregados = Conceptos;
+            tiposconceptos = bdtipoconcepto.SelectTiposConceptos();
+            lstTipoConcepto.ItemsSource = tiposconceptos;
             lstAgregados.ItemsSource = Conceptos;
             lstAgregados.Items.Refresh();
             persona = bdpersona.SelectPersona(recibo.Legajo);
@@ -112,11 +118,12 @@ namespace ParteVisual.vistas
                 nuevoconcepto.Legajo = persona.Legajo;
                 nuevoconcepto.Monto = nuevotipo.Monto;
                 nuevoconcepto.Cantidad = cantidad;
+                nuevoconcepto.TipoConcepto = nuevotipo;
 
                 Conceptosagregados.Add(nuevoconcepto);                
                 lstAgregados.Items.Add(nuevoconcepto);
                 lstAgregados.Items.Refresh();
-            }
+            }            
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
@@ -138,8 +145,9 @@ namespace ParteVisual.vistas
                 total += Conceptosagregados[i].Monto;
             }
             recibosueldo.SueldoBruto = total;
-            recibosueldo.SueldoNeto = total;
+            recibosueldo.SueldoNeto = total * 0.79f;
 
+            aceptado = true;
             this.Close();            
         }
     }

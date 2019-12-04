@@ -40,28 +40,35 @@ namespace ParteVisual.vistas
 
         private void bntAgregarRS_Click(object sender, RoutedEventArgs e)
         {
+            
             Persona persona = (Persona)lstPersona.SelectedItem;
             FAMReciboSueldo vistafmars = new FAMReciboSueldo(persona);
             vistafmars.ShowDialog();
-            bdrecibosueldo.InsertReciboSueldo(vistafmars.Recibosueldo);            
-            recibossueldos.Add(vistafmars.Recibosueldo);
-            lstReciboSueldo.Items.Refresh();
 
-            // Insert de conceptosrecibos nuevos
-            int nuevoindice = bdconcepto.MaxIdDB();
-            // Objetos necesarios
-            List<Concepto> conceptosagregados = vistafmars.Conceptosagregados;
-            ReciboSueldo recibosueldo = vistafmars.Recibosueldo;
-            
-
-            for (int i = 0; i < conceptosagregados.Count; i++)
+            if(vistafmars.Aceptado)
             {
-                bool sehizo = bdconcepto.InsertConcepto(conceptosagregados[i]);
-                if (!sehizo)
+                bdrecibosueldo.InsertReciboSueldo(vistafmars.Recibosueldo);
+                recibossueldos.Add(vistafmars.Recibosueldo);
+                lstReciboSueldo.Items.Refresh();
+
+                // Insert de conceptosrecibos nuevos
+                int nuevoindice = bdconcepto.MaxIdDB();
+                // Objetos necesarios
+                List<Concepto> conceptosagregados = vistafmars.Conceptosagregados;
+                ReciboSueldo recibosueldo = vistafmars.Recibosueldo;
+
+
+                for (int i = 0; i < conceptosagregados.Count; i++)
                 {
-                    MessageBox.Show("No se ejecuto la query");
+                    conceptosagregados[i].IdCR = conceptosagregados[i].IdCR + i;
+                    bool sehizo = bdconcepto.InsertConcepto(conceptosagregados[i]);
+                    if (!sehizo)
+                    {
+                        MessageBox.Show("No se ejecuto la query");
+                    }
+                    else MessageBox.Show("SI SE EJECUTO!");
                 }
-            }
+            }            
         }
 
         private void btnModificar_Click(object sender, RoutedEventArgs e)
@@ -73,12 +80,16 @@ namespace ParteVisual.vistas
                 //vistafamrecibo.Cargar(recibo);
                 List<Concepto> quitar = vistafamrecibo.Conceptosquitados;
                 vistafamrecibo.ShowDialog();
-                for (int i = 0; i < quitar.Count; i++)
+
+                if(vistafamrecibo.Aceptado)
                 {
-                    bool res = bdconcepto.DeleteConcepto(quitar[i]);
-                    if (res)
+                    for (int i = 0; i < quitar.Count; i++)
                     {
-                        MessageBox.Show("ELIMINADO CON EXITO");
+                        bool res = bdconcepto.DeleteConcepto(quitar[i]);
+                        if (res)
+                        {
+                            MessageBox.Show("ELIMINADO CON EXITO");
+                        }
                     }
                 }
             }
@@ -94,6 +105,9 @@ namespace ParteVisual.vistas
             if (recibo != null)
             {
                 bdrecibosueldo.DeleteReciboSueldo(recibo);
+                recibossueldos.Remove(recibo);
+                lstReciboSueldo.ItemsSource = recibossueldos;
+                lstReciboSueldo.Items.Refresh();
             }
             else
             {

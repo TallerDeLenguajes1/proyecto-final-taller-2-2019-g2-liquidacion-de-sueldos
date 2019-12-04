@@ -54,7 +54,7 @@ namespace AccesoDatos
         {
             try
             {
-                const string qry = "SELECT * FROM conceptosrecibos WHERE baja != 1";
+                const string qry = "SELECT * FROM conceptosrecibos INNER JOIN conceptos USING(idConcepto) WHERE conceptosrecibos.baja != 1 AND conceptos.baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
@@ -68,8 +68,14 @@ namespace AccesoDatos
                                 IdRS = Convert.ToInt32(rd["idRS"].ToString()),
                                 Legajo = Convert.ToInt32(rd["legajo"].ToString()),
                                 Monto = (float)Convert.ToDouble(rd["monto"].ToString()),
-                                Cantidad = (float)Convert.ToDouble(rd["cantidad"].ToString())
-                            });
+                                Cantidad = (float)Convert.ToDouble(rd["cantidad"].ToString()),
+                                TipoConcepto = new TipoConcepto
+                                {
+                                    IdTipoConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
+                                    Concepto = rd["concepto"].ToString(),
+                                    Monto = (float)Convert.ToDouble(rd["conceptos.monto"].ToString())
+                                }
+                            }); ;
                         }
                     }
                     conexion.Desconectar();
@@ -128,7 +134,7 @@ namespace AccesoDatos
             int nuevoId = MaxIdDB();
             try
             {
-                string qry = "insert into conceptosrecibos (idCR, idConcepto, idRS, legajo, monto, cantidad) values (@idCR, @idConcepto, @idRS, @legajo, @monto, @cantidad)";
+                string qry = "insert into conceptosrecibos (idCR, idConcepto, idRS, legajo, monto, cantidad, baja) values (@idCR, @idConcepto, @idRS, @legajo, @monto, @cantidad,0)";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idCR", concepto.IdCR);

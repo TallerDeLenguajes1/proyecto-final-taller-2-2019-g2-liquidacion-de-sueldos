@@ -14,10 +14,10 @@ namespace Entidades
         private int legajo;
         private float monto;
         private float cantidad;
-        private Concepto tipoConcepto;
+        private TipoConcepto tipoConcepto;
         public Concepto() { }    //Constructor por defecto
 
-        public Concepto(int idCR, int idConcepto, int idRS, int legajo, float monto, float cantidad, Concepto tipoConcepto)
+        public Concepto(int idCR, int idConcepto, int idRS, int legajo, float monto, float cantidad, TipoConcepto tipoConcepto)
         {
             this.idCR = idCR;
             this.idConcepto = idConcepto;
@@ -34,11 +34,11 @@ namespace Entidades
         public int Legajo { get => legajo; set => legajo = value; }
         public float Monto { get => monto; set => monto = value; }
         public float Cantidad { get => cantidad; set => cantidad = value; }
-        public Concepto TipoConcepto { get => tipoConcepto; set => tipoConcepto = value; }
+        public TipoConcepto TipoConcepto { get => tipoConcepto; set => tipoConcepto = value; }
 
         public override string ToString()
         {
-            return "TipoConcepto: " + idConcepto + " Cantidad: " + cantidad + " Monto: " + Monto;
+            return "Tipo: " + TipoConcepto.Concepto + " Cantidad: " + cantidad + " Monto: " + Monto;
         }
 
     }

@@ -91,7 +91,7 @@ namespace AccesoDatos
             List<Concepto> conceptos = new List<Concepto>();
             try
             {
-                const string qry = "SELECT * FROM recibossueldos INNER JOIN conceptosrecibos USING (idRS) WHERE recibossueldos.baja != 1 AND conceptosrecibos.baja != 1";
+                const string qry = "SELECT * FROM recibossueldos INNER JOIN conceptosrecibos USING (idRS) INNER JOIN conceptos USING(idConcepto) WHERE recibossueldos.baja != 1 AND conceptosrecibos.baja != 1 AND idRS = @idRS";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {                    
                     cmd.Parameters.AddWithValue("@idRS", recibo.Idrs);
@@ -105,9 +105,15 @@ namespace AccesoDatos
                                 IdConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
                                 IdRS = Convert.ToInt32(rd["idRS"].ToString()),
                                 Legajo = Convert.ToInt32(rd["legajo"].ToString()),
-                                Monto = (float)Convert.ToDouble(rd["monto"].ToString()),
-                                Cantidad = (float)Convert.ToDouble(rd["cantidad"].ToString())
-                            });
+                                Monto = (float)Convert.ToDouble(rd[10].ToString()),
+                                Cantidad = (float)Convert.ToDouble(rd["cantidad"].ToString()),
+                                TipoConcepto = new TipoConcepto
+                                {
+                                    IdTipoConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
+                                    Concepto = rd["concepto"].ToString(),
+                                    Monto = (float)Convert.ToDouble(rd[14].ToString())
+                                }
+                            });;
                         }
                     }
                     conexion.Desconectar();
