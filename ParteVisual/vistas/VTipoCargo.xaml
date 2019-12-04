@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParteVisual.vistas"
         mc:Ignorable="d"
-        Title="VTipoCargo" Height="450" Width="800">
+        Title="Tipos de Cargos" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="lstTiposCargos" HorizontalAlignment="Left" Height="374" Margin="10,35,0,0" VerticalAlignment="Top" Width="310"/>
-        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="325,35,0,0" VerticalAlignment="Top" Width="75" Click="btnAgregar_Click"/>
-        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="325,60,0,0" VerticalAlignment="Top" Width="75" Click="btnModificar_Click"/>
-        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="325,85,0,0" VerticalAlignment="Top" Width="75" Click="btnEliminar_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Cargos" VerticalAlignment="Top"/>
+        <ListBox x:Name="lstTiposCargos" HorizontalAlignment="Left" Height="330" Margin="10,79,0,0" VerticalAlignment="Top" Width="310"/>
+        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="325,79,0,0" VerticalAlignment="Top" Width="75" Click="btnAgregar_Click"/>
+        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="325,104,0,0" VerticalAlignment="Top" Width="75" Click="btnModificar_Click"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="325,129,0,0" VerticalAlignment="Top" Width="75" Click="btnEliminar_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="Cargos" VerticalAlignment="Top"/>
+        <TextBlock x:Name="txtNombre" HorizontalAlignment="Center" Margin="209,10,245.6,0" TextWrapping="Wrap" Text="Tipos de Cargos" VerticalAlignment="Top" FontSize="36" FontFamily="Arial Black" Width="339"/>
 
     </Grid>
 </Window>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FAMPersona" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="275">
+        <StackPanel HorizontalAlignment="Left" Height="399" Margin="10,44,0,-23" VerticalAlignment="Top" Width="275">
             <TextBlock TextWrapping="Wrap" Text="Nombre"/>
             <TextBox x:Name="tbxNombre" Height="23" TextWrapping="Wrap" Text=""/>
             <TextBlock TextWrapping="Wrap" Text="Apellido"/>
@@ -20,6 +20,7 @@
             <TextBlock TextWrapping="Wrap" Text="Fecha de Nacimiento"/>
             <Calendar x:Name="fechaNacimiento"/>
         </StackPanel>
-        <Button Content="Aceptar" HorizontalAlignment="Left" Margin="322,23,0,0" VerticalAlignment="Top" Width="75" Height="40" Click="Button_Click"/>
+        <Button Content="Aceptar" HorizontalAlignment="Left" Margin="322,57,0,0" VerticalAlignment="Top" Width="75" Height="40" Click="Button_Click"/>
+        <TextBlock x:Name="txtNombre" HorizontalAlignment="Center" Margin="291,10,270.6,0" TextWrapping="Wrap" Text="Formulario Personas" VerticalAlignment="Top" FontSize="20" FontFamily="Arial Black" Width="232"/>
     </Grid>
 </Window>

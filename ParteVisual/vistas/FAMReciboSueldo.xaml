@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         Title="FAMReciboSueldo" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="lstTipoConcepto" HorizontalAlignment="Left" Height="223" Margin="323,41,0,0" VerticalAlignment="Top" Width="207"/>
-        <Label x:Name="lblTipoCargo" Content="Agregar Concepto" HorizontalAlignment="Left" Margin="371,15,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="lstTipoConcepto" HorizontalAlignment="Left" Height="197" Margin="323,67,0,0" VerticalAlignment="Top" Width="207"/>
+        <Label x:Name="lblTipoCargo" Content="Agregar Concepto" HorizontalAlignment="Left" Margin="371,36,0,0" VerticalAlignment="Top"/>
         <Calendar x:Name="cldMesAnio" HorizontalAlignment="Left" Margin="75,67,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblFecha" Content="Ingrese la Fecha" HorizontalAlignment="Left" Margin="117,41,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblAgregados" Content="Conceptos Agregados" HorizontalAlignment="Left" Height="28" Margin="606,15,0,0" VerticalAlignment="Top" Width="133"/>
-        <ListBox x:Name="lstAgregados" HorizontalAlignment="Left" Height="221" Margin="561,43,0,0" VerticalAlignment="Top" Width="207" MouseDoubleClick="lstAgregados_MouseDoubleClick"/>
+        <Label x:Name="lblAgregados" Content="Conceptos Agregados" HorizontalAlignment="Left" Height="28" Margin="605,36,0,0" VerticalAlignment="Top" Width="133"/>
+        <ListBox x:Name="lstAgregados" HorizontalAlignment="Left" Height="197" Margin="561,67,0,0" VerticalAlignment="Top" Width="207" MouseDoubleClick="lstAgregados_MouseDoubleClick"/>
         <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="371,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69"/>
         <Label Content="Cantidad" HorizontalAlignment="Left" Margin="308,282,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnagregarConcepto" Content="Agregar" HorizontalAlignment="Left" Margin="455,282,0,0" VerticalAlignment="Top" Width="75" Click="btnagregarConcepto_Click"/>
         <Button x:Name="btnCrearRecibo" Content="Aceptar" HorizontalAlignment="Left" Height="30" Margin="63,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCrearRecibo_Click"/>
         <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="30" Margin="165,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelar_Click"/>
+        <TextBlock x:Name="txtNombre" HorizontalAlignment="Center" Margin="234,10,208.6,0" TextWrapping="Wrap" Text="Formulario Recibos de Sueldos" VerticalAlignment="Top" FontSize="20" FontFamily="Arial Black" Width="351"/>
 
     </Grid>
 </Window>

@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParteVisual.vistas"
         mc:Ignorable="d"
-        Title="VTipoConcepto" Height="450" Width="800">
+        Title="Tipos de Conceptos" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="lstTiposConceptos" HorizontalAlignment="Left" Height="345" Margin="25,20,0,0" VerticalAlignment="Top" Width="310"/>
-        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="340,50,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.133,0.455" Click="btnAgregar_Click_1"/>
-        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="340,77,0,0" VerticalAlignment="Top" Width="75" Click="btnModificar_Click_1"/>
-        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="340,104,0,0" VerticalAlignment="Top" Width="75" Click="btnEliminar_Click"/>
+        <ListBox x:Name="lstTiposConceptos" HorizontalAlignment="Left" Height="277" Margin="25,88,0,0" VerticalAlignment="Top" Width="310"/>
+        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="340,88,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.133,0.455" Click="btnAgregar_Click_1"/>
+        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="340,115,0,0" VerticalAlignment="Top" Width="75" Click="btnModificar_Click_1"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="340,142,0,0" VerticalAlignment="Top" Width="75" Click="btnEliminar_Click"/>
+        <TextBlock x:Name="txtNombre" HorizontalAlignment="Center" Margin="222,24,180.6,0" TextWrapping="Wrap" Text="Tipos de Conceptos" VerticalAlignment="Top" FontSize="36" FontFamily="Arial Black" Width="391"/>
     </Grid>
 </Window>

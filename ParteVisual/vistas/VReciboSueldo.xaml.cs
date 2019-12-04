@@ -137,11 +137,15 @@ namespace ParteVisual.vistas
         private void btnExportar_Click(object sender, RoutedEventArgs e)
         {
             ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
+            
             if (recibo != null)
             {
+                Persona persona = bdpersona.SelectPersona(recibo.Legajo);
+                String filename = @"reportes\\" + persona.Nombres + "-" + recibo.Mes.ToString() + "-" + recibo.Anio + ".csv";
+
                 List<String> lineas = bdrecibosueldo.ToCSV(recibo);
                 using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"reportes\\ReciboSueldo.csv"))
+                    new System.IO.StreamWriter(filename))
                 {
                     foreach (string line in lineas)
                     {
@@ -166,6 +170,9 @@ namespace ParteVisual.vistas
             ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
             if (recibo != null)
             {
+                Persona persona = bdpersona.SelectPersona(recibo.Legajo);
+                String filename = @"reportes\\" + persona.Nombres + "-" + recibo.Mes.ToString() + "-" + recibo.Anio + ".xls";
+
                 List<object[]> lineas = bdrecibosueldo.ToExcel(recibo);
 
                 using (ExcelEngine excelEngine = new ExcelEngine())
@@ -187,14 +194,8 @@ namespace ParteVisual.vistas
                         sheet.ImportArray(lineas[i], i+2, 1, false);
                     }
 
-                    /*//Inserting a new row by formatting as a previous row.
-                    sheet.InsertRow(30, 1, ExcelInsertOptions.FormatAsBefore);
-
-                    //Import Peter's expenses and fill it horizontally
-                    sheet.ImportArray(expenseArray, 11, 1, false);*/
-
                     //Save the file in the given path
-                    Stream excelStream = File.Create(System.IO.Path.GetFullPath(@"reportes\\ReciboSueldo.xls"));
+                    Stream excelStream = File.Create(System.IO.Path.GetFullPath(filename));
                     workbook.SaveAs(excelStream);
                     excelStream.Dispose();
                     MessageBox.Show("Excel Creado con Exito!");
@@ -204,30 +205,6 @@ namespace ParteVisual.vistas
             {
                 MessageBox.Show("No Seleccionó ningun recibo");
             }
-            
-
-
-            /*string csvFileName = @"reportes\\recibosueldo.csv";
-            string excelFileName = @"reportes\\recibosueldo.xls";
-
-            string worksheetsName = "TEST";
-
-            bool firstRowIsHeader = true;
-
-            var format = new ExcelTextFormat();
-            format.Delimiter = ',';
-            format.EOL = "\r";              // DEFAULT IS "\r\n";
-                                            // format.TextQualifier = '"';
-
-            using (ExcelPackage package = new ExcelPackage(new FileInfo(excelFileName)))
-            {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(worksheetsName);
-                worksheet.Cells["A1"].LoadFromText(new FileInfo(csvFileName), format, OfficeOpenXml.Table.TableStyles.Medium27, firstRowIsHeader);
-                package.Save();
-            }
-
-            Console.WriteLine("Finished!");
-            Console.ReadLine();*/
         }
     }
 }

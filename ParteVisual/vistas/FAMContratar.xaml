@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FAMContratar" Height="450" Width="800">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="275">
+        <StackPanel HorizontalAlignment="Left" Height="399" Margin="10,57,0,-36" VerticalAlignment="Top" Width="275">
             <TextBlock TextWrapping="Wrap" Text="Nombre"/>
             <TextBox x:Name="tbxNombre" Height="23" TextWrapping="Wrap" Text=""/>
             <TextBlock TextWrapping="Wrap" Text="Apellido"/>
@@ -20,10 +20,11 @@
             <TextBlock TextWrapping="Wrap" Text="Fecha de Nacimiento"/>
             <Calendar x:Name="fechaNacimiento"/>
         </StackPanel>
-        <ComboBox  x:Name="cbxPersonas" HorizontalAlignment="Left" Margin="386,23,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button  x:Name="btnContratar" Content="Contratar" HorizontalAlignment="Left" Margin="545,22,0,0" VerticalAlignment="Top" Width="75" Click="btnContratar_Click"/>
-        <Label Content="Cargo:" HorizontalAlignment="Left" Margin="325,19,0,0" VerticalAlignment="Top"/>
-        <TextBlock  x:Name="tbxPuesto" HorizontalAlignment="Left" Margin="80,19,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <ComboBox  x:Name="cbxPersonas" HorizontalAlignment="Left" Margin="386,70,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button  x:Name="btnContratar" Content="Contratar" HorizontalAlignment="Left" Margin="545,69,0,0" VerticalAlignment="Top" Width="75" Click="btnContratar_Click"/>
+        <Label Content="Cargo:" HorizontalAlignment="Left" Margin="325,66,0,0" VerticalAlignment="Top"/>
+        <TextBlock  x:Name="tbxPuesto" HorizontalAlignment="Left" Margin="80,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <TextBlock x:Name="txtNombre" HorizontalAlignment="Center" Margin="269,10,173.6,0" TextWrapping="Wrap" Text="Formulario Contratacion" VerticalAlignment="Top" FontSize="20" FontFamily="Arial Black" Width="351"/>
 
     </Grid>
 </Window>

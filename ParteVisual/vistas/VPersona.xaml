@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParteVisual.vistas"
         mc:Ignorable="d"
-        Title="VPersona" Height="450" Width="800" MinWidth="800" MinHeight="450">
+        Title="Personas" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Personas" VerticalAlignment="Top"/>
-        <StackPanel Margin="276,31,268,10">
+        <TextBlock HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" Text="Personas" VerticalAlignment="Top"/>
+        <StackPanel Margin="276,81,267.6,44">
             <Button x:Name="bntAgregarPersona" Content="Agregar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntAgregarPersona_Click"/>
             <Button x:Name="bntModificarPersona" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntModificarPersona_Click"/>
             <Button x:Name="bntEliminarPersona" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntEliminarPersona_Click"/>
             <Button x:Name="bntContratar" Content="Contratar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntContratar_Click"/>
             <Button x:Name="bntDespedir" Content="Despedir" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Click="bntDespedir_Click"/>
         </StackPanel>
-        <ListBox x:Name="lstbxPersona" HorizontalAlignment="Left" Height="378" Margin="10,31,0,0" VerticalAlignment="Top" Width="261"/>
+        <ListBox x:Name="lstbxPersona" HorizontalAlignment="Left" Height="347" Margin="10,62,0,0" VerticalAlignment="Top" Width="261"/>
+        <TextBlock x:Name="txtNombre" HorizontalAlignment="Center" Margin="315,10,296.6,0" TextWrapping="Wrap" Text="Personas" VerticalAlignment="Top" FontSize="30" FontFamily="Arial Black"/>
 
     </Grid>
 </Window>
