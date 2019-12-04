@@ -32,16 +32,24 @@ namespace Entidades
             this.cargos = cargos;
             this.recibos = recibos;
         }
-        public Persona(int legajo, string nombres, string apellidos, string documento, string sexo, string baja)
+        public Persona(int legajo, string nombres, string apellidos, string documento, string sexo, DateTime fechaNacimiento)
         {
             this.legajo = legajo;
             this.nombres = nombres;
             this.apellidos = apellidos;
             this.documento = documento;
             this.sexo = sexo;
-            this.baja = baja;
+            this.fechaNacimiento = fechaNacimiento;
         }
-
+        public Persona(int legajo, string nombres, string apellidos, string documento, string sexo)
+        {
+            this.legajo = legajo;
+            this.nombres = nombres;
+            this.apellidos = apellidos;
+            this.documento = documento;
+            this.sexo = sexo;
+            this.baja = "N";
+        }
         public int Legajo { get => legajo; set => legajo = value; }
         public string Nombres { get => nombres; set => nombres = value; }
         public string Apellidos { get => apellidos; set => apellidos = value; }
@@ -54,7 +62,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return legajo + "," + nombres + "," + apellidos + "," + documento + ","+ fechaNacimiento+""+ sexo + "," + baja;
+            return  nombres + "," + apellidos;
         }
     }
 }

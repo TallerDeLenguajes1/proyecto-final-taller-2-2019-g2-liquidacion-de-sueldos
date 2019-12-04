@@ -57,5 +57,13 @@ namespace ParteVisual
             vCargo.ShowDialog();
             this.Show();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            VPersona vPersona = new VPersona();
+            this.Hide();
+            vPersona.ShowDialog();
+            this.Show();
+        }
     }
 }

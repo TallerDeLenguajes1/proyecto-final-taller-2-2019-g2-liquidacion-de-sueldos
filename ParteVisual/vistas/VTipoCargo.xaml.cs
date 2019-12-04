@@ -26,6 +26,8 @@ namespace ParteVisual.vistas
         public VTipoCargo()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             tiposCargos = new List<TipoCargo>();
             bdTipoCargo = new BDTipoCargo();
 
@@ -78,9 +80,10 @@ namespace ParteVisual.vistas
         {
             TipoCargo SelectedTipoCargo = (TipoCargo)lstTiposCargos.SelectedItem;
             bdTipoCargo.DeleteTipoCargo(SelectedTipoCargo);
+            tiposCargos.Remove(SelectedTipoCargo);
+            lstTiposCargos.Items.Refresh();
             MessageBox.Show("Eliminado correcamente");
-            this.Close();
-            //lstTiposCargos.Items.Refresh();
+            
             //lstTiposCargos.Items.Remove((TipoCargo)lstTiposCargos.SelectedItem);
             //ItemsControl.ItemsSource
         }

@@ -29,14 +29,14 @@ namespace AccesoDatos
             int id = -1;
             try
             {
-                const string qry = "SELECT max(legajo)+1 as legajo FROM personas;";
+                const string qry = "SELECT max(legajo)+1 as l FROM personas;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            id = Convert.ToInt32(rd["legajo"].ToString());
+                            id = Convert.ToInt32(rd["l"].ToString());
                         }
                     }
                     conexion.Desconectar();
@@ -172,16 +172,12 @@ namespace AccesoDatos
             bool estadoQry = false;
             try
             {
-                string qry = "UPDATE PERSONA SET legajo = @legajo, nombres= @nombres, apellidos= @apellidos, documento=@documento, fechaNacimiento= @fechaNacimiento, sexo= @sexo, baja= @baja WHERE legajo = @legajo";
+                string qry = "UPDATE personas SET nombres= @nombres, apellidos= @apellidos WHERE legajo = @legajo";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
                     cmd.Parameters.AddWithValue("@nombres", persona.Nombres);
                     cmd.Parameters.AddWithValue("@apellidos", persona.Apellidos);
-                    cmd.Parameters.AddWithValue("@documento", persona.Documento);
-                    cmd.Parameters.AddWithValue("@fechaNacimiento", persona.FechaNacimiento);
-                    cmd.Parameters.AddWithValue("@sexo", persona.Sexo);
-                    cmd.Parameters.AddWithValue("@baja", persona.Baja);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;
@@ -210,13 +206,14 @@ namespace AccesoDatos
             int nuevoLegajo = MaxIdDB();
             try
             {
-                string qry = "insert into Persona (legajo,nombres,apellidos,documento,fechaNacimiento,sexo,baja) values (@legajo,@nombres, @apellidos,@documento,@fechaNacimiento,@sexo,@baja)";
+                string qry = "insert into personas (legajo,nombres,apellidos,documento,fechaNacimiento,sexo,baja) values (@legajo,@nombres, @apellidos,@documento,@fechaNacimiento,@sexo,@baja)";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
+                    
                     cmd.Parameters.AddWithValue("@nombres", persona.Nombres);
-                    cmd.Parameters.AddWithValue("@aepellido", persona.Apellidos);
+                    cmd.Parameters.AddWithValue("@apellidos", persona.Apellidos);
                     cmd.Parameters.AddWithValue("@documento", persona.Documento);
-                    cmd.Parameters.AddWithValue("@fechaNacimiento", persona.FechaNacimiento);
+                    cmd.Parameters.AddWithValue("@fechaNacimiento", persona.FechaNacimiento.ToString("yyyy-MM-dd"));
                     cmd.Parameters.AddWithValue("@sexo", persona.Sexo);
                     cmd.Parameters.AddWithValue("@baja", persona.Baja);
                     cmd.Parameters.AddWithValue("@legajo", nuevoLegajo);

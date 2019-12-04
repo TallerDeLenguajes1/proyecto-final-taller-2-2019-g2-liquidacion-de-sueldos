@@ -78,6 +78,9 @@
     <Compile Include="vistas\FAMContratar.xaml.cs">
       <DependentUpon>FAMContratar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="vistas\FAMPersona.xaml.cs">
+      <DependentUpon>FAMPersona.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vistas\FAMReciboSueldo.xaml.cs">
       <DependentUpon>FAMReciboSueldo.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,9 @@
     </Compile>
     <Compile Include="vistas\VCargo.xaml.cs">
       <DependentUpon>VCargo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vistas\VPersona.xaml.cs">
+      <DependentUpon>VPersona.xaml</DependentUpon>
     </Compile>
     <Compile Include="vistas\VTipoCargo.xaml.cs">
       <DependentUpon>VTipoCargo.xaml</DependentUpon>
@@ -115,6 +121,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="vistas\FAMPersona.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="vistas\FAMReciboSueldo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="vistas\VCargo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="vistas\VPersona.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParteVisual"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        <Button Content="Personas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="56"/>
-        <Button Content="Cargos" HorizontalAlignment="Left" Margin="138,10,0,0" VerticalAlignment="Top" Width="130" Click="Button_Click" Height="54"/>
-        <Button x:Name="btnReciboSueldo" Content="Recibos de Sueldo" HorizontalAlignment="Left" Margin="414,12,0,0" VerticalAlignment="Top" Width="143" Click="btnReciboSueldo_Click" Height="56"/>
-        <Button Content="Conceptos" HorizontalAlignment="Left" Margin="562,12,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_1" Height="56"/>
-        <Button Content="Contrataciones" HorizontalAlignment="Left" Margin="273,12,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_2" Height="53"/>
+        <StackPanel HorizontalAlignment="Left" Margin="34,65,0,10" Width="257">
+            <Button Content="Personas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click_3" Margin="0,0,0,10"/>
+            <Button Content="Cargos" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click" Height="50" Margin="0,0,0,10"/>
+            <Button Content="Contrataciones" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click_2" Height="50" Margin="0,0,0,10"/>
+            <Button x:Name="btnReciboSueldo" Content="Recibos de Sueldo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="btnReciboSueldo_Click" Height="50" Margin="0,0,0,10"/>
+            <Button Content="Conceptos" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click_1" Height="50"/>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="34,12,0,0" TextWrapping="Wrap" Text="Liquidación de Sueldos" VerticalAlignment="Top" FontSize="36" FontFamily="Arial Black"/>
     </Grid>
 </Window>
