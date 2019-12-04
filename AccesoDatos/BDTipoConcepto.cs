@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +12,34 @@ namespace AccesoDatos
     public class BDTipoConcepto
     {
         private List<TipoConcepto> tiposConceptos;
+        private TipoConcepto tipoconcepto;
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
+
+        public TipoConcepto Tipoconcepto { get => tipoconcepto; set => tipoconcepto = value; }
+
         public BDTipoConcepto()
         {
             this.tiposConceptos = new List<TipoConcepto>();
             this.conexion = new Conexion();
+            this.tipoconcepto = new TipoConcepto();
         }
-        //Trae el maximo id de la tabla cargos de la base de datos
-        private int MaxIdDB()
+        /// <summary>
+        /// Trae el maximo id de conceptos en la base de datos
+        /// </summary>
+        public int MaxIdDB()
         {
             int id = -1;
             try
             {
-                const string qry = "SELECT max(idConcepto)+1 as idconcepto FROM conceptos;";
+                const string qry = "SELECT max(idconcepto)+1 as idconcepto FROM conceptos;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            id = Convert.ToInt32(rd["idConcepto"].ToString());
+                            id = Convert.ToInt32(rd["idconcepto"].ToString());
                         }
                     }
                     conexion.Desconectar();
@@ -38,28 +47,42 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR MAXIMO ID DE CONCEPTOS ) -> {0}", ex.ToString());
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista de Tipo conceptos
+        /// </summary>
         public List<TipoConcepto> SelectTiposConceptos()
         {
             try
             {
+                float montoTmp;
                 //const string qry = "SELECT * FROM conceptos WHERE monto <> \"NULL\"";
-                const string qry = "SELECT * FROM conceptos";
+                const string qry = "SELECT * FROM conceptos WHERE baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
+                            if (rd["monto"].ToString() != "")
+                            {
+                                montoTmp = float.Parse(rd["monto"].ToString());
+                            }
+                            else
+                            {
+                                montoTmp = float.Parse("0");
+                            }
                             tiposConceptos.Add(new TipoConcepto
                             {
-                                IdTipoConcepto = Convert.ToInt32(rd["idConcepto"].ToString()),
+
+                                IdTipoConcepto = Convert.ToInt32(rd["idconcepto"].ToString()),
                                 Concepto = rd["concepto"].ToString(),
-                                Monto = (float)Convert.ToDouble(rd["monto"].ToString())
-                             
+                                Monto = montoTmp
+
                             });
                         }
                     }
@@ -68,11 +91,63 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOS ) -> {0}", ex.ToString());
             }
 
             return tiposConceptos;
         }
+
+        /// <summary>
+        /// Selecciona un TipoConcepto
+        /// </summary>
+        public TipoConcepto SelectTipoConcepto(int idTipoConcepto)
+        {
+            try
+            {
+                float montoTmp;
+                //const string qry = "SELECT * FROM conceptos WHERE monto <> \"NULL\"";
+                const string qry = "SELECT * FROM conceptos WHERE idConcepto = @idTipoConcepto AND baja != 1";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@idTipoConcepto", idTipoConcepto);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            if (rd["monto"].ToString() != "")
+                            {
+                                montoTmp = float.Parse(rd["monto"].ToString());
+                            }
+                            else
+                            {
+                                montoTmp = float.Parse("0");
+                            }
+
+
+                            tipoconcepto.IdTipoConcepto = Convert.ToInt32(rd["idconcepto"].ToString());
+                            tipoconcepto.Concepto = rd["concepto"].ToString();
+                            tipoconcepto.Monto = montoTmp;
+
+                            
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOS ) -> {0}", ex.ToString());
+            }
+
+            return tipoconcepto;
+        }
+
+
+        /// <summary>
+        /// Actualiza un TipoConcepto en la base de datos
+        /// </summary>
         public bool UpdateTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
@@ -98,10 +173,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR CONCEPTOS ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega un nuevo tipoconcepto en la base de datos
+        /// </summary>
         public bool InsertTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
@@ -127,17 +206,21 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL INSERTAR CONCEPTO ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Borra un tipo concepto en la base de datos 
+        /// </summary>
         public bool DeleteTipoConcepto(TipoConcepto tipoConcepto)
         {
             bool estadoQry = false;
             try
             {
-                //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN conceptos
-                string qry = "DELETE FROM conceptos WHERE idconcepto = @idTipoConcepto";
+                //LA BASE DE DATOS NO TE DEJA ELIMINAR Concepto, ES FOREING KEY EN ConceptosRecibos
+                string qry = "UPDATE conceptos set baja = 1  WHERE idconcepto = @idTipoConcepto";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idTipoConcepto", tipoConcepto.IdTipoConcepto);
@@ -155,7 +238,8 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL BORRAR CONCEPTO ) -> {0}", ex.ToString());
             }
             return estadoQry;
         }

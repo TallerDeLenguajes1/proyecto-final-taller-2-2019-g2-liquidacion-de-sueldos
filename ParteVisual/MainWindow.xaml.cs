@@ -1,5 +1,6 @@
 ﻿using AccesoDatos;
 using Entidades;
+using ParteVisual.vistas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace ParteVisual
 {
@@ -25,33 +27,46 @@ namespace ParteVisual
         public MainWindow()
         {
             InitializeComponent();
-            BDConcepto tc = new BDConcepto();
-
-            //List<TipoCargo> Ltp = tc.SelectTiposCargos();
-            List<Concepto> Ltp = tc.SelectConceptos();
-
-            //MessageBox.Show(tc.MaxIdDB().ToString());
-            MessageBox.Show(Ltp[5].ToString());
-            /*int id = Ltp[0].IdTipoCargo;
-
-            Ltp[0].Categoria = "PRUEBA";
-
-            tc.UpdateTipoCargo(Ltp[0]);
-            Ltp = tc.SelectTiposCargos();
-            MessageBox.Show(Ltp[30].ToString());
-            //MessageBox.Show(tc.MaxIdDB().ToString());
-            TipoCargo tipocargoNuevo = new TipoCargo(0, "CAtegoria Nueva4", 1200);*/
-
-            //MessageBox.Show(tc.InsertTipoCargo(tipocargoNuevo).ToString());
-            //MessageBox.Show(Ltp[0].IdTipoCargo.ToString());
-            //MessageBox.Show(tc.DeleteTipoCargo(Ltp[0]).ToString());
-
-            //Ltp = tc.SelectTiposCargos();
-            //MessageBox.Show(Ltp[Ltp.Count() - 1].ToString());
-            //MessageBox.Show(Ltp[0].ToString());
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            System.IO.Directory.CreateDirectory("reportes");
+            Application.Current.Properties["nfi"] = new CultureInfo("en-US", false).NumberFormat;
 
 
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VTipoCargo vTipoCargo = new VTipoCargo();
+            vTipoCargo.ShowDialog();
+        }
+
+        private void btnReciboSueldo_Click(object sender, RoutedEventArgs e)
+        {
+            VReciboSueldo vReciboSueldo = new VReciboSueldo();
+            vReciboSueldo.ShowDialog();
+        }
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            VTipoConcepto vTipoConcepto = new VTipoConcepto();
+            vTipoConcepto.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            VCargo vCargo = new VCargo();
+            this.Hide();
+            vCargo.ShowDialog();
+            this.Show();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            VPersona vPersona = new VPersona();
+            this.Hide();
+            vPersona.ShowDialog();
+            this.Show();
         }
     }
 }

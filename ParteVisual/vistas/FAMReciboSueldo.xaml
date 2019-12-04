@@ -1,0 +1,23 @@
+﻿<Window x:Class="ParteVisual.vistas.FAMReciboSueldo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParteVisual.vistas"
+        mc:Ignorable="d"
+        Title="FAMReciboSueldo" Height="450" Width="800">
+    <Grid>
+        <ListBox x:Name="lstTipoConcepto" HorizontalAlignment="Left" Height="223" Margin="323,41,0,0" VerticalAlignment="Top" Width="207"/>
+        <Label x:Name="lblTipoCargo" Content="Agregar Concepto" HorizontalAlignment="Left" Margin="371,15,0,0" VerticalAlignment="Top"/>
+        <Calendar x:Name="cldMesAnio" HorizontalAlignment="Left" Margin="75,67,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblFecha" Content="Ingrese la Fecha" HorizontalAlignment="Left" Margin="117,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblAgregados" Content="Conceptos Agregados" HorizontalAlignment="Left" Height="28" Margin="606,15,0,0" VerticalAlignment="Top" Width="133"/>
+        <ListBox x:Name="lstAgregados" HorizontalAlignment="Left" Height="221" Margin="561,43,0,0" VerticalAlignment="Top" Width="207" MouseDoubleClick="lstAgregados_MouseDoubleClick"/>
+        <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="23" Margin="371,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69"/>
+        <Label Content="Cantidad" HorizontalAlignment="Left" Margin="308,282,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnagregarConcepto" Content="Agregar" HorizontalAlignment="Left" Margin="455,282,0,0" VerticalAlignment="Top" Width="75" Click="btnagregarConcepto_Click"/>
+        <Button x:Name="btnCrearRecibo" Content="Aceptar" HorizontalAlignment="Left" Height="30" Margin="63,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCrearRecibo_Click"/>
+        <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="30" Margin="165,285,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelar_Click"/>
+
+    </Grid>
+</Window>

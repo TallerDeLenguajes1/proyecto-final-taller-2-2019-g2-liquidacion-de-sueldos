@@ -1,0 +1,29 @@
+﻿<Window x:Class="ParteVisual.vistas.FAMContratar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParteVisual.vistas"
+        mc:Ignorable="d"
+        Title="FAMContratar" Height="450" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="275">
+            <TextBlock TextWrapping="Wrap" Text="Nombre"/>
+            <TextBox x:Name="tbxNombre" Height="23" TextWrapping="Wrap" Text=""/>
+            <TextBlock TextWrapping="Wrap" Text="Apellido"/>
+            <TextBox x:Name="tbxApellido" Height="23" TextWrapping="Wrap" Text=""/>
+            <TextBlock TextWrapping="Wrap" Text="Documento"/>
+            <TextBox x:Name="tbxDocumento" Height="23" TextWrapping="Wrap" Text=""/>
+            <TextBlock TextWrapping="Wrap" Text="Sexo"/>
+            <RadioButton x:Name="rbtnHombre" Content="Hombre" IsChecked="True"/>
+            <RadioButton x:Name="rbtnMujer" Content="Mujer"/>
+            <TextBlock TextWrapping="Wrap" Text="Fecha de Nacimiento"/>
+            <Calendar x:Name="fechaNacimiento"/>
+        </StackPanel>
+        <ComboBox  x:Name="cbxPersonas" HorizontalAlignment="Left" Margin="386,23,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button  x:Name="btnContratar" Content="Contratar" HorizontalAlignment="Left" Margin="545,22,0,0" VerticalAlignment="Top" Width="75" Click="btnContratar_Click"/>
+        <Label Content="Cargo:" HorizontalAlignment="Left" Margin="325,19,0,0" VerticalAlignment="Top"/>
+        <TextBlock  x:Name="tbxPuesto" HorizontalAlignment="Left" Margin="80,19,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

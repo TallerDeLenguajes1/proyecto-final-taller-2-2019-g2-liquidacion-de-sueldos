@@ -1,0 +1,21 @@
+﻿<Window x:Class="ParteVisual.vistas.VReciboSueldo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParteVisual.vistas"
+        mc:Ignorable="d"
+        Title="VReciboSueldo" Height="500" Width="900
+        ">
+    <Grid Margin="0,0,-307.4,-352">
+        <ListBox x:Name="lstReciboSueldo" HorizontalAlignment="Left" Height="261" VerticalAlignment="Top" Width="226" Margin="231,59,0,0" MouseDoubleClick="lstReciboSueldo_MouseDoubleClick"/>
+        <ListBox x:Name="lstConcepto" HorizontalAlignment="Left" Height="261" Margin="664,59,0,0" VerticalAlignment="Top" Width="204"/>
+        <Button x:Name="bntAgregarRS" Content="Agregar" HorizontalAlignment="Left" Margin="492,79,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="bntAgregarRS_Click"/>
+        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="492,153,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="btnModificar_Click"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="492,219,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="btnEliminar_Click"/>
+        <ListBox x:Name="lstPersona" HorizontalAlignment="Left" Height="255" Margin="10,65,0,0" VerticalAlignment="Top" Width="216" MouseDoubleClick="lstPersona_MouseDoubleClick"/>
+        <Button x:Name="btnExportar" Content="Exportar a CSV" HorizontalAlignment="Left" Margin="492,280,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="btnExportar_Click"/>
+        <Button x:Name="btnExportarExcel" Content="Exportar a Excel" HorizontalAlignment="Left" Margin="492,343,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="btnExportarExcel_Click"/>
+
+    </Grid>
+</Window>

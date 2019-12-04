@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entidades;
 using MySql.Data.MySqlClient;
+using NLog;
 
 namespace AccesoDatos
 {
@@ -12,13 +13,16 @@ namespace AccesoDatos
     {
         private List<TipoCargo> tiposCargos;
         Conexion conexion;
+        Logger logger = LogManager.GetCurrentClassLogger();
         public BDTipoCargo()
         {
             this.tiposCargos = new List<TipoCargo>();
             this.conexion = new Conexion();
         }
-        //Trae el maximo id de la tabla cargos de la base de datos
-        private int MaxIdDB()
+        /// <summary>
+        /// Trae el maximo id de cargos
+        /// </summary>
+        public int MaxIdDB()
         {
             int id = -1;
             try
@@ -38,15 +42,19 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECIONAR MAXIMO ID CARGO) -> {0}", ex.ToString());
+                //Console.WriteLine(ex.Message);
             }
             return id;
         }
+        /// <summary>
+        /// Retorna una lista con todos los cargos
+        /// </summary>
         public List<TipoCargo> SelectTiposCargos()
         {
             try
             {
-                const string qry = "SELECT * FROM cargos";
+                const string qry = "SELECT * FROM cargos WHERE baja != 1;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
@@ -66,11 +74,15 @@ namespace AccesoDatos
             }
             catch(MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECIONAR CARGOS EN BASE DE DATOS ) -> {0}", ex.ToString());
             }
             
             return tiposCargos;
         }
+        /// <summary>
+        /// Actualiza un Cargo en la base de datos
+        /// </summary>
         public bool UpdateTipoCargo(TipoCargo tipoCargo)
         {
             bool estadoQry = false;
@@ -96,10 +108,14 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ACTUALIZAR CARGO EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Agrega un nuevo cargo en la base de datos
+        /// </summary>
         public bool InsertTipoCargo(TipoCargo tipoCargo)
         {
             bool estadoQry = false;
@@ -125,17 +141,21 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL INSERTAR CARGO EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
             return estadoQry;
         }
+        /// <summary>
+        /// Realiza una baja logica de un cargo en la base de datos
+        /// </summary>
         public bool DeleteTipoCargo(TipoCargo tipoCargo)
         {
             bool estadoQry = false;
             try
             {
                 //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN CargosPersonas
-                string qry = "DELETE FROM cargos WHERE idcargo = @idTipoCargo";
+                string qry = "UPDATE cargos set baja = 1 WHERE idcargo = @idTipoCargo";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idTipoCargo", tipoCargo.IdTipoCargo);
@@ -153,9 +173,50 @@ namespace AccesoDatos
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL ELIMINAR CARGO EN LA BASE DE DATOS) -> {0}", ex.ToString());
             }
             return estadoQry;
+        }
+        /// <summary>
+        /// Retorna una lista de personas que ocuparon u ocupan un determinado cargo
+        /// </summary>
+        public List<Cargo> SelectPersonasCargos(TipoCargo tipocargo)
+        {
+            List<Cargo> personasCargos = new List<Cargo>();
+            try
+            {
+                const string qry = "select * from personascargos inner join personas using (legajo) inner join cargos using (idCargo) where idCargo = @idTipoCargo;";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@idTipoCargo", tipocargo.IdTipoCargo);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            personasCargos.Add(new Cargo
+                            {
+                                IdPC = Convert.ToInt32(rd["idPC"].ToString()),
+                                IdCargo = Convert.ToInt32(rd["idcargo"].ToString()),
+                                Legajo = Convert.ToInt32(rd["legajo"].ToString()),
+                                Funcion = rd["legajo"].ToString(),
+                                FechaIngreso = Convert.ToDateTime(rd["fechaIngreso"].ToString()),
+                                FechaBaja = DateTime.MinValue,
+                                Antiguedad = Convert.ToInt32(rd["antiguedad"].ToString()),
+                                TipoCargo = tipocargo
+                            });
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR PERSONASCARGOS EN LA BASE DE DATOS) -> {0}", ex.ToString());
+            }
+
+            return personasCargos;
         }
     }
 }

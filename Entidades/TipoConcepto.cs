@@ -25,7 +25,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return idTipoConcepto + "," + concepto + "," + monto;
+            return "Tipo: " + concepto + " Monto: " + monto;
         }
     }
 

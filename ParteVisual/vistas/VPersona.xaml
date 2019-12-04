@@ -1,0 +1,21 @@
+﻿<Window x:Class="ParteVisual.vistas.VPersona"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParteVisual.vistas"
+        mc:Ignorable="d"
+        Title="VPersona" Height="450" Width="800" MinWidth="800" MinHeight="450">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Personas" VerticalAlignment="Top"/>
+        <StackPanel Margin="276,31,268,10">
+            <Button x:Name="bntAgregarPersona" Content="Agregar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntAgregarPersona_Click"/>
+            <Button x:Name="bntModificarPersona" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntModificarPersona_Click"/>
+            <Button x:Name="bntEliminarPersona" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntEliminarPersona_Click"/>
+            <Button x:Name="bntContratar" Content="Contratar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Margin="0,0,0,10" Click="bntContratar_Click"/>
+            <Button x:Name="bntDespedir" Content="Despedir" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="40" Click="bntDespedir_Click"/>
+        </StackPanel>
+        <ListBox x:Name="lstbxPersona" HorizontalAlignment="Left" Height="378" Margin="10,31,0,0" VerticalAlignment="Top" Width="261"/>
+
+    </Grid>
+</Window>
