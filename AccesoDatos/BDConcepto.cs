@@ -164,7 +164,7 @@ namespace AccesoDatos
             try
             {
                 //LA BASE DE DATOS NO TE DEJA ELIMINAR CARGO, ES FOREING KEY EN conceptosrecibos
-                string qry = "DELETE FROM conceptosrecibos WHERE idCR = @idCR";
+                string qry = "UPDATE conceptosrecibos SET baja = 1 WHERE idCR = @idCR";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idCR", concepto.IdCR);
