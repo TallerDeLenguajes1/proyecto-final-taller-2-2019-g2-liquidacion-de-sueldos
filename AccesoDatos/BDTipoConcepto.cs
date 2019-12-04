@@ -167,7 +167,7 @@ namespace AccesoDatos
             try
             {
                 //LA BASE DE DATOS NO TE DEJA ELIMINAR Concepto, ES FOREING KEY EN ConceptosRecibos
-                string qry = "DELETE FROM conceptos WHERE idconcepto = @idTipoConcepto";
+                string qry = "UPDATE conceptos set baja = 1  WHERE idconcepto = @idTipoConcepto";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     cmd.Parameters.AddWithValue("@idTipoConcepto", tipoConcepto.IdTipoConcepto);

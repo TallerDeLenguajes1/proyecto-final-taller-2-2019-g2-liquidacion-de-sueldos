@@ -27,14 +27,14 @@ namespace AccesoDatos
             int id = -1;
             try
             {
-                const string qry = "SELECT max(idCR)+1 as idconcepto FROM conceptosrecibos;";
+                const string qry = "SELECT max(idCR)+1 as idcr FROM conceptosrecibos;";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            id = Convert.ToInt32(rd["idconcepto"].ToString());
+                            id = Convert.ToInt32(rd["idcr"].ToString());
                         }
                     }
                     conexion.Desconectar();
