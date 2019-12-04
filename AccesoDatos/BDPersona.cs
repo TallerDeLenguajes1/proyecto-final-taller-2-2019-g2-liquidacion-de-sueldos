@@ -97,20 +97,19 @@ namespace AccesoDatos
                 const string qry = "SELECT * FROM personas where legajo = @legajo AND baja != 1";
                 using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@legajo", persona.Legajo);
+                    cmd.Parameters.AddWithValue("@legajo", legajo);
                     using (var rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            new Persona
-                            {
-                                Legajo = Convert.ToInt32(rd["legajo"].ToString()),
-                                Nombres = rd["nombres"].ToString(),
-                                Apellidos = rd["apellidos"].ToString(),
-                                Documento = rd["documento"].ToString(),
-                                Sexo = rd["sexo"].ToString(),
-                                Baja = rd["baja"].ToString()
-                            };
+
+                            persona.Legajo = Convert.ToInt32(rd["legajo"].ToString());
+                            persona.Nombres = rd["nombres"].ToString();
+                            persona.Apellidos = rd["apellidos"].ToString();
+                            persona.Documento = rd["documento"].ToString();
+                            persona.Sexo = rd["sexo"].ToString();
+                            persona.Baja = rd["baja"].ToString();
+                            
                         }
                     }
                     conexion.Desconectar();

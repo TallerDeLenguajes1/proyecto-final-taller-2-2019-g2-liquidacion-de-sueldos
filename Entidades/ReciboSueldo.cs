@@ -37,7 +37,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return idrs + "," + legajo + "," + mes + "," + anio + "," + sueldoBruto + "," + sueldoNeto;
+            return "Mes: " + mes + "/" + anio + " Sueldo Bruto: " + sueldoBruto + "  Sueldo Neto: " + sueldoNeto;
         }
         public float calcularMonto()
         {

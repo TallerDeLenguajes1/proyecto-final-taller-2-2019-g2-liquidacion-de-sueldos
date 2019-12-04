@@ -203,10 +203,10 @@ namespace AccesoDatos
             try
             {
                 //LA BASE DE DATOS NO TE DEJA ELIMINAR idrs, ES FOREING KEY EN ReciboSueldo
-                string qry = "DELETE FROM recibossueldos WHERE idrs = @idrs";
+                string qry = "UPDATE recibossueldos SET baja = 1 WHERE idRS = @idRS";
                 using (MySqlCommand cmd = new MySqlCommand(qry, conexion.Conectar()))
                 {
-                    cmd.Parameters.AddWithValue("@idrs", reciboSueldo.Idrs);
+                    cmd.Parameters.AddWithValue("@idRS", reciboSueldo.Idrs);
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         estadoQry = true;

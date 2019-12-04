@@ -67,18 +67,37 @@ namespace ParteVisual.vistas
         private void btnModificar_Click(object sender, RoutedEventArgs e)
         {
             ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
-            FAMReciboSueldo vistafamrecibo = new FAMReciboSueldo(recibo);
-            //vistafamrecibo.Cargar(recibo);
-            List<Concepto> quitar = vistafamrecibo.Conceptosquitados;
-            vistafamrecibo.ShowDialog();
-
-            for(int i = 0; i < quitar.Count; i++)
+            if (recibo != null)
             {
-                bool res = bdconcepto.DeleteConcepto(quitar[i]);
-                if (res)
+                FAMReciboSueldo vistafamrecibo = new FAMReciboSueldo(recibo);
+                //vistafamrecibo.Cargar(recibo);
+                List<Concepto> quitar = vistafamrecibo.Conceptosquitados;
+                vistafamrecibo.ShowDialog();
+                for (int i = 0; i < quitar.Count; i++)
                 {
-                    MessageBox.Show("ELIMINADO CON EXITO");
+                    bool res = bdconcepto.DeleteConcepto(quitar[i]);
+                    if (res)
+                    {
+                        MessageBox.Show("ELIMINADO CON EXITO");
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("No Seleccionó ningun recibo");
+            }
+        }
+
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            ReciboSueldo recibo = (ReciboSueldo)lstReciboSueldo.SelectedItem;
+            if (recibo != null)
+            {
+                bdrecibosueldo.DeleteReciboSueldo(recibo);
+            }
+            else
+            {
+                MessageBox.Show("No Seleccionó ningun recibo");
             }
         }
 
@@ -97,6 +116,7 @@ namespace ParteVisual.vistas
             lstReciboSueldo.ItemsSource = recibossueldos;
             lstReciboSueldo.Items.Refresh();
         }
+
         
     }
 }

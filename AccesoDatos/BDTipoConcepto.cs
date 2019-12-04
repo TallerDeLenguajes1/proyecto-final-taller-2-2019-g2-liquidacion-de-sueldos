@@ -12,12 +12,17 @@ namespace AccesoDatos
     public class BDTipoConcepto
     {
         private List<TipoConcepto> tiposConceptos;
+        private TipoConcepto tipoconcepto;
         Conexion conexion;
         Logger logger = LogManager.GetCurrentClassLogger();
+
+        public TipoConcepto Tipoconcepto { get => tipoconcepto; set => tipoconcepto = value; }
+
         public BDTipoConcepto()
         {
             this.tiposConceptos = new List<TipoConcepto>();
             this.conexion = new Conexion();
+            this.tipoconcepto = new TipoConcepto();
         }
         /// <summary>
         /// Trae el maximo id de conceptos en la base de datos
@@ -92,6 +97,54 @@ namespace AccesoDatos
 
             return tiposConceptos;
         }
+
+        /// <summary>
+        /// Selecciona un TipoConcepto
+        /// </summary>
+        public TipoConcepto SelectTipoConcepto(int idTipoConcepto)
+        {
+            try
+            {
+                float montoTmp;
+                //const string qry = "SELECT * FROM conceptos WHERE monto <> \"NULL\"";
+                const string qry = "SELECT * FROM conceptos WHERE idConcepto = @idTipoConcepto AND baja != 1";
+                using (var cmd = new MySqlCommand(qry, conexion.Conectar()))
+                {
+                    cmd.Parameters.AddWithValue("@idTipoConcepto", idTipoConcepto);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            if (rd["monto"].ToString() != "")
+                            {
+                                montoTmp = float.Parse(rd["monto"].ToString());
+                            }
+                            else
+                            {
+                                montoTmp = float.Parse("0");
+                            }
+
+
+                            tipoconcepto.IdTipoConcepto = Convert.ToInt32(rd["idconcepto"].ToString());
+                            tipoconcepto.Concepto = rd["concepto"].ToString();
+                            tipoconcepto.Monto = montoTmp;
+
+                            
+                        }
+                    }
+                    conexion.Desconectar();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                //Console.WriteLine(ex.Message);
+                logger.Error("ERROR!! ( AL SELECCIONAR CONCEPTOS ) -> {0}", ex.ToString());
+            }
+
+            return tipoconcepto;
+        }
+
+
         /// <summary>
         /// Actualiza un TipoConcepto en la base de datos
         /// </summary>

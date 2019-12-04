@@ -38,7 +38,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return idCR + "," + idConcepto + "," + idRS + "," + legajo + "," + monto + "," + cantidad;
+            return "TipoConcepto: " + idConcepto + " Cantidad: " + cantidad + " Monto: " + Monto;
         }
 
     }
